@@ -19,6 +19,9 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 
+using WebSocketSharp;
+using WebSocketSharp.Server;
+
 namespace Auditore.Test
 {
    public partial class frmMain : Form
@@ -35,13 +38,13 @@ namespace Auditore.Test
       {
          try {
             this.trackBarTest.Value = this.client.Volume;
-            this.label1.Text = $"音量 : {this.client.Volume.ToString()}";
+            this.label1.Text = $"音量 : { this.client.Volume }";
 
             this.trackBar1.Value = this.client.SpeechSpeed;
-            this.label2.Text = $"速度 : {this.client.SpeechSpeed.ToString()}";
+            this.label2.Text = $"速度 : { this.client.SpeechSpeed }";
 
-            this.label3.Text = $"タスク Id : {this.client.CurrentTaskId.ToString()}";
-            this.label4.Text = $"タスク数 : {this.client.TaskCount.ToString()}";
+            this.label3.Text = $"タスク Id : { this.client.CurrentTaskId }";
+            this.label4.Text = $"タスク数 : { this.client.TaskCount }";
 
             this.label5.Text = DateTime.Now.ToString();
          }
@@ -55,7 +58,7 @@ namespace Auditore.Test
       {
          try {
             int taskId = this.client.Push(this.textBoxMessage.Text);
-            this.label7.Text = $"タスク Id : {taskId.ToString()}";
+            this.label7.Text = $"タスク Id : { taskId }";
             Debug.WriteLine($"追加されたタスクId: { taskId }");
 
             this.Initialize();
@@ -88,6 +91,16 @@ namespace Auditore.Test
       private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
       {
          this.Initialize();
+      }
+
+      private void button1_Click(object sender, EventArgs e)
+      {
+         try {
+            this.client.SocketPush(this.textBox1.Text);
+         }
+         catch (Exception ex) {
+            MessageBox.Show(ex.Message, "取得に失敗しました", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+         }
       }
    }
 }

@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouyomiChan">
-      <HintPath>..\..\..\..\Bin\BouyomiChan\BouyomiChan.exe</HintPath>
+      <HintPath>..\..\..\..\Bin\BouyomiChan_0_1_11_0_Beta21\BouyomiChan.exe</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,6 +55,11 @@
       <Project>{e550d951-b0ad-4967-86c6-92fd4d6e2b05}</Project>
       <Name>Auditore.Library</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="WebSocketSharp-netstandard">
+      <Version>1.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -60,12 +60,17 @@ namespace Auditore.Test
          this.linkLabel1 = new System.Windows.Forms.LinkLabel();
          this.statusStrip1 = new System.Windows.Forms.StatusStrip();
          this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+         this.tabPage3 = new System.Windows.Forms.TabPage();
+         this.label6 = new System.Windows.Forms.Label();
+         this.textBox1 = new System.Windows.Forms.TextBox();
+         this.button1 = new System.Windows.Forms.Button();
          ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.trackBarTest)).BeginInit();
          this.tabControl1.SuspendLayout();
          this.tabPage1.SuspendLayout();
          this.tabPage2.SuspendLayout();
          this.statusStrip1.SuspendLayout();
+         this.tabPage3.SuspendLayout();
          this.SuspendLayout();
          // 
          // textBoxMessage
@@ -153,6 +158,7 @@ namespace Auditore.Test
          // 
          this.tabControl1.Controls.Add(this.tabPage1);
          this.tabControl1.Controls.Add(this.tabPage2);
+         this.tabControl1.Controls.Add(this.tabPage3);
          this.tabControl1.Location = new System.Drawing.Point(8, 9);
          this.tabControl1.Name = "tabControl1";
          this.tabControl1.SelectedIndex = 0;
@@ -166,7 +172,7 @@ namespace Auditore.Test
          this.tabPage1.Controls.Add(this.buttonSend);
          this.tabPage1.Location = new System.Drawing.Point(4, 22);
          this.tabPage1.Name = "tabPage1";
-         this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+         this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
          this.tabPage1.Size = new System.Drawing.Size(381, 290);
          this.tabPage1.TabIndex = 0;
          this.tabPage1.Text = "プレイグラウンド";
@@ -193,7 +199,7 @@ namespace Auditore.Test
          this.tabPage2.Controls.Add(this.label3);
          this.tabPage2.Location = new System.Drawing.Point(4, 22);
          this.tabPage2.Name = "tabPage2";
-         this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+         this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
          this.tabPage2.Size = new System.Drawing.Size(381, 290);
          this.tabPage2.TabIndex = 1;
          this.tabPage2.Text = "情報";
@@ -237,6 +243,47 @@ namespace Auditore.Test
          this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
          this.toolStripStatusLabel1.Text = "© 2019-2021 coreizer";
          // 
+         // tabPage3
+         // 
+         this.tabPage3.Controls.Add(this.label6);
+         this.tabPage3.Controls.Add(this.textBox1);
+         this.tabPage3.Controls.Add(this.button1);
+         this.tabPage3.Location = new System.Drawing.Point(4, 22);
+         this.tabPage3.Name = "tabPage3";
+         this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+         this.tabPage3.Size = new System.Drawing.Size(381, 290);
+         this.tabPage3.TabIndex = 2;
+         this.tabPage3.Text = "tabPage3";
+         this.tabPage3.UseVisualStyleBackColor = true;
+         // 
+         // label6
+         // 
+         this.label6.AutoSize = true;
+         this.label6.Location = new System.Drawing.Point(24, 232);
+         this.label6.Name = "label6";
+         this.label6.Size = new System.Drawing.Size(53, 12);
+         this.label6.TabIndex = 10;
+         this.label6.Text = "タスク Id : ";
+         // 
+         // textBox1
+         // 
+         this.textBox1.Location = new System.Drawing.Point(26, 29);
+         this.textBox1.Multiline = true;
+         this.textBox1.Name = "textBox1";
+         this.textBox1.Size = new System.Drawing.Size(330, 202);
+         this.textBox1.TabIndex = 8;
+         this.textBox1.Text = "こんにちは";
+         // 
+         // button1
+         // 
+         this.button1.Location = new System.Drawing.Point(249, 237);
+         this.button1.Name = "button1";
+         this.button1.Size = new System.Drawing.Size(107, 24);
+         this.button1.TabIndex = 9;
+         this.button1.Text = "送信";
+         this.button1.UseVisualStyleBackColor = true;
+         this.button1.Click += new System.EventHandler(this.button1_Click);
+         // 
          // frmMain
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -258,6 +305,8 @@ namespace Auditore.Test
          this.tabPage2.PerformLayout();
          this.statusStrip1.ResumeLayout(false);
          this.statusStrip1.PerformLayout();
+         this.tabPage3.ResumeLayout(false);
+         this.tabPage3.PerformLayout();
          this.ResumeLayout(false);
          this.PerformLayout();
 
@@ -281,6 +330,10 @@ namespace Auditore.Test
       private System.Windows.Forms.Label label7;
       private System.Windows.Forms.StatusStrip statusStrip1;
       private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+      private System.Windows.Forms.TabPage tabPage3;
+      private System.Windows.Forms.Label label6;
+      private System.Windows.Forms.TextBox textBox1;
+      private System.Windows.Forms.Button button1;
    }
 }
 

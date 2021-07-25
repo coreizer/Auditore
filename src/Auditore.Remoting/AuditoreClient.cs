@@ -26,14 +26,22 @@ using System.Runtime.Remoting.Channels.Ipc;
 using Auditore.Library;
 using Auditore.Remoting.Enums;
 
+using WebSocketSharp;
+
 namespace Auditore.Remoting
 {
    public class AuditoreClient : IDisposable
    {
-      private IpcClientChannel clientChannel;
-      private AuditoreRefObject auditoreRefObject;
+      #region フィールド
+
+      private readonly AuditoreRefObject auditoreRefObject;
+      private readonly IpcClientChannel clientChannel;
+
+      private WebSocket webSocket;
 
       private bool disposedValue = false;
+
+      #endregion
 
       /// <summary>
       /// ミュート状態かどうかを取得します。
@@ -163,6 +171,24 @@ namespace Auditore.Remoting
          );
 
          this.auditoreRefObject = new AuditoreRefObject();
+
+         // WebSocket 送信用にチャットに参加します
+         this.WebSocketChatJoin();
+      }
+
+      private void WebSocketChatJoin()
+      {
+         this.webSocket = new WebSocket("ws://localhost:1337/chat");
+         this.webSocket.ConnectAsync();
+      }
+
+      public void SocketPush(string message)
+      {
+         if (!this.webSocket.IsAlive) {
+            throw new Exception("WebSocket接続が失敗しました");
+         }
+
+         this.webSocket.Send(message);
       }
 
       /// <summary>
@@ -236,8 +262,13 @@ namespace Auditore.Remoting
       /// <returns>このタスクのIDが返されます</returns>
       public virtual int PushCore(bool isForce, string message, int speechSpeed = -1, int volume = -1)
       {
-         if (!this.IsProcessRunning) throw new Win32Exception("依存プロセスが存在しません");
-         if (isForce || this.SpeakerState == AuditoreState.Speaking) return this.auditoreRefObject.PushMessage(message, speechSpeed, volume);
+         if (!this.IsProcessRunning) {
+            throw new Win32Exception("依存プロセスが存在しません");
+         }
+
+         if (isForce || this.SpeakerState == AuditoreState.Speaking) {
+            return this.auditoreRefObject.PushMessage(message, speechSpeed, volume);
+         }
 
          return -1;
       }

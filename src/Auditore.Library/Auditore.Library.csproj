@@ -34,7 +34,7 @@
   <ItemGroup>
     <Reference Include="BouyomiChan, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1c96d45f60dba1bd, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Bin\BouyomiChan\BouyomiChan.exe</HintPath>
+      <HintPath>..\..\..\..\Bin\BouyomiChan_0_1_11_0_Beta21\BouyomiChan.exe</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -48,6 +48,12 @@
     <Compile Include="AuditoreRefObject.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebSockets\Chat.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="WebSocketSharp-netstandard">
+      <Version>1.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

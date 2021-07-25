@@ -20,6 +20,8 @@ using System;
 using FNF.BouyomiChanApp;
 using FNF.Utility;
 
+using WebSocketSharp;
+
 namespace Auditore.Library
 {
    public sealed class AuditoreRefObject : MarshalByRefObject
@@ -39,6 +41,8 @@ namespace Auditore.Library
       private const int DefaultPitch = 100;
       private const int MaxPitch = 200;
       private const int MinPitch = 50;
+
+      private WebSocket WebSocket;
 
       #endregion フィールド
 
@@ -159,6 +163,29 @@ namespace Auditore.Library
       }
 
       #endregion プロパティ
+
+      public AuditoreRefObject()
+      {
+         // WebSocket 受信用にチャットに参加します
+         this.WebSocketChatJoin();
+      }
+
+      private void WebSocketChatJoin()
+      {
+         this.WebSocket = new WebSocket("ws://localhost:1337/chat");
+         this.WebSocket.OnMessage += this.WebSocket_OnMessage;
+         this.WebSocket.ConnectAsync();
+      }
+
+      /// <summary>
+      /// WebSocket 受信メッセージをAddTalkTaskに渡します
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
+      private void WebSocket_OnMessage(object sender, MessageEventArgs e)
+      {
+         Pub.AddTalkTask(e.Data);
+      }
 
       /// <summary>
       /// タスクにメッセージを追加します。
