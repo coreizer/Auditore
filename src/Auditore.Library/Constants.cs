@@ -15,8 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using FNF.Utility;
-
 namespace Auditore.Library
 {
    public static class Constants
