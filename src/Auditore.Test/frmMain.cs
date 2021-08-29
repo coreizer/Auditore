@@ -19,14 +19,11 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-using WebSocketSharp;
-using WebSocketSharp.Server;
-
 namespace Auditore.Test
 {
    public partial class frmMain : Form
    {
-      private readonly Remoting.AuditoreClient client = new Remoting.AuditoreClient();
+      private readonly Remoting.Auditore auditore = new Remoting.Auditore();
 
       public frmMain()
       {
@@ -37,14 +34,14 @@ namespace Auditore.Test
       private void Initialize()
       {
          try {
-            this.trackBarTest.Value = this.client.Volume;
-            this.label1.Text = $"音量 : { this.client.Volume }";
+            this.trackBarTest.Value = this.auditore.Volume;
+            this.label1.Text = $"音量 : { this.auditore.Volume }";
 
-            this.trackBar1.Value = this.client.SpeechSpeed;
-            this.label2.Text = $"速度 : { this.client.SpeechSpeed }";
+            this.trackBar1.Value = this.auditore.SpeechSpeed;
+            this.label2.Text = $"速度 : { this.auditore.SpeechSpeed }";
 
-            this.label3.Text = $"タスク Id : { this.client.CurrentTaskId }";
-            this.label4.Text = $"タスク数 : { this.client.TaskCount }";
+            this.label3.Text = $"タスク Id : { this.auditore.CurrentTaskId }";
+            this.label4.Text = $"タスク数 : { this.auditore.TaskCount }";
 
             this.label5.Text = DateTime.Now.ToString();
          }
@@ -57,7 +54,7 @@ namespace Auditore.Test
       private void ButtonSend_Click(object sender, EventArgs e)
       {
          try {
-            int taskId = this.client.Push(this.textBoxMessage.Text);
+            int taskId = this.auditore.Push(this.textBoxMessage.Text);
             this.label7.Text = $"タスク Id : { taskId }";
             Debug.WriteLine($"追加されたタスクId: { taskId }");
 
@@ -71,7 +68,7 @@ namespace Auditore.Test
       private void trackBarTest_Validating(object sender, System.ComponentModel.CancelEventArgs e)
       {
          try {
-            this.client.Volume = (sender as TrackBar).Value;
+            this.auditore.Volume = (sender as TrackBar).Value;
          }
          catch (Exception ex) {
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -81,7 +78,7 @@ namespace Auditore.Test
       private void trackBar1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
       {
          try {
-            this.client.SpeechSpeed = (sender as TrackBar).Value;
+            this.auditore.SpeechSpeed = (sender as TrackBar).Value;
          }
          catch (Exception ex) {
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -95,12 +92,6 @@ namespace Auditore.Test
 
       private void button1_Click(object sender, EventArgs e)
       {
-         try {
-            this.client.SocketPush(this.textBox1.Text);
-         }
-         catch (Exception ex) {
-            MessageBox.Show(ex.Message, "取得に失敗しました", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-         }
       }
    }
 }

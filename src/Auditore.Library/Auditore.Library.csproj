@@ -48,12 +48,6 @@
     <Compile Include="AuditoreRefObject.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebSockets\Chat.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="WebSocketSharp-netstandard">
-      <Version>1.0.1</Version>
-    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -21,16 +21,10 @@ using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Ipc;
 using System.Security.Principal;
-
 using Auditore.Library;
-using Auditore.Library.WebSockets;
 using Auditore.Plugin.Settings;
-
 using FNF.BouyomiChanApp;
 using FNF.XmlSerializerSetting;
-
-using WebSocketSharp;
-using WebSocketSharp.Server;
 
 namespace Auditore.Plugin
 {
@@ -42,8 +36,6 @@ namespace Auditore.Plugin
 
       private PluginSettings settings;
       private PluginFormData settingFormData;
-
-      private WebSocketServer webSocket;
 
       #endregion フィールド
 
@@ -124,9 +116,6 @@ namespace Auditore.Plugin
 
          // フォームデータを初期化します
          this.settingFormData = new PluginFormData(this.settings);
-
-         // WebSocket サーバーを作成します
-         this.WebSocketServer();
       }
 
       /// <summary>
@@ -135,16 +124,6 @@ namespace Auditore.Plugin
       public void End()
       {
          ChannelServices.UnregisterChannel(this.serverChannel);
-      }
-
-      /// <summary>
-      /// ウェブソケットを作成し、接続状態にします
-      /// </summary>
-      private void WebSocketServer()
-      {
-         this.webSocket = new WebSocketServer(1337);
-         this.webSocket.AddWebSocketService<Chat>("/chat");
-         this.webSocket.Start();
       }
    }
 }

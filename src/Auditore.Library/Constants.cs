@@ -23,28 +23,22 @@ namespace Auditore.Library
    {
       /// <summary>
       /// チャンネル名を取得します。
-      /// 
-      /// message
       /// </summary>
       public static readonly string ChannelName = "message";
 
       /// <summary>
       /// チャンネルオブジェクトUriを取得します。
-      /// 
-      /// auditore
       /// </summary>
       public static readonly string PortName = "auditore";
 
       /// <summary>
       /// チャンネルIPCを取得します。
-      /// 
-      /// ipc://auditore/message
       /// </summary>
       public static readonly string IPC = "ipc://auditore/message";
 
       /// <summary>
       /// プラグイン設定パスを取得します。
       /// </summary>
-      public static readonly string Settings = Base.CallAsmPath + "auditore.setting";
+      public static readonly string Settings = "auditore.setting";
    }
 }

@@ -23,6 +23,9 @@ namespace Auditore.Plugin.Settings
    {
       public PluginSettings settings;
 
+      /// <summary>
+      /// プラグインのタイトルを設定します
+      /// </summary>
       public string Title {
          get {
             return "Auditore プラグイン";
@@ -35,6 +38,9 @@ namespace Auditore.Plugin.Settings
          }
       }
 
+      /// <summary>
+      /// プラグインの設定を取得します
+      /// </summary>
       public SettingsBase Setting {
          get {
             return this.settings;

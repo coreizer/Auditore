@@ -84,10 +84,5 @@
       <Name>Auditore.Remoting</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="WebSocketSharp-netstandard">
-      <Version>1.0.1</Version>
-    </PackageReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

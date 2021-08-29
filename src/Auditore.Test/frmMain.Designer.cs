@@ -60,22 +60,17 @@ namespace Auditore.Test
          this.linkLabel1 = new System.Windows.Forms.LinkLabel();
          this.statusStrip1 = new System.Windows.Forms.StatusStrip();
          this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-         this.tabPage3 = new System.Windows.Forms.TabPage();
-         this.label6 = new System.Windows.Forms.Label();
-         this.textBox1 = new System.Windows.Forms.TextBox();
-         this.button1 = new System.Windows.Forms.Button();
          ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.trackBarTest)).BeginInit();
          this.tabControl1.SuspendLayout();
          this.tabPage1.SuspendLayout();
          this.tabPage2.SuspendLayout();
          this.statusStrip1.SuspendLayout();
-         this.tabPage3.SuspendLayout();
          this.SuspendLayout();
          // 
          // textBoxMessage
          // 
-         this.textBoxMessage.Location = new System.Drawing.Point(28, 29);
+         this.textBoxMessage.Location = new System.Drawing.Point(24, 22);
          this.textBoxMessage.Multiline = true;
          this.textBoxMessage.Name = "textBoxMessage";
          this.textBoxMessage.Size = new System.Drawing.Size(330, 202);
@@ -84,7 +79,7 @@ namespace Auditore.Test
          // 
          // buttonSend
          // 
-         this.buttonSend.Location = new System.Drawing.Point(251, 237);
+         this.buttonSend.Location = new System.Drawing.Point(247, 247);
          this.buttonSend.Name = "buttonSend";
          this.buttonSend.Size = new System.Drawing.Size(107, 24);
          this.buttonSend.TabIndex = 1;
@@ -158,8 +153,7 @@ namespace Auditore.Test
          // 
          this.tabControl1.Controls.Add(this.tabPage1);
          this.tabControl1.Controls.Add(this.tabPage2);
-         this.tabControl1.Controls.Add(this.tabPage3);
-         this.tabControl1.Location = new System.Drawing.Point(8, 9);
+         this.tabControl1.Location = new System.Drawing.Point(12, 12);
          this.tabControl1.Name = "tabControl1";
          this.tabControl1.SelectedIndex = 0;
          this.tabControl1.Size = new System.Drawing.Size(389, 316);
@@ -168,8 +162,8 @@ namespace Auditore.Test
          // tabPage1
          // 
          this.tabPage1.Controls.Add(this.label7);
-         this.tabPage1.Controls.Add(this.textBoxMessage);
          this.tabPage1.Controls.Add(this.buttonSend);
+         this.tabPage1.Controls.Add(this.textBoxMessage);
          this.tabPage1.Location = new System.Drawing.Point(4, 22);
          this.tabPage1.Name = "tabPage1";
          this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -181,7 +175,7 @@ namespace Auditore.Test
          // label7
          // 
          this.label7.AutoSize = true;
-         this.label7.Location = new System.Drawing.Point(26, 232);
+         this.label7.Location = new System.Drawing.Point(22, 253);
          this.label7.Name = "label7";
          this.label7.Size = new System.Drawing.Size(53, 12);
          this.label7.TabIndex = 7;
@@ -230,10 +224,10 @@ namespace Auditore.Test
          this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
          this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-         this.statusStrip1.Location = new System.Drawing.Point(0, 327);
+         this.statusStrip1.Location = new System.Drawing.Point(0, 335);
          this.statusStrip1.Name = "statusStrip1";
          this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 8, 0);
-         this.statusStrip1.Size = new System.Drawing.Size(406, 22);
+         this.statusStrip1.Size = new System.Drawing.Size(410, 22);
          this.statusStrip1.TabIndex = 10;
          this.statusStrip1.Text = "statusStrip1";
          // 
@@ -243,52 +237,11 @@ namespace Auditore.Test
          this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
          this.toolStripStatusLabel1.Text = "© 2019-2021 coreizer";
          // 
-         // tabPage3
-         // 
-         this.tabPage3.Controls.Add(this.label6);
-         this.tabPage3.Controls.Add(this.textBox1);
-         this.tabPage3.Controls.Add(this.button1);
-         this.tabPage3.Location = new System.Drawing.Point(4, 22);
-         this.tabPage3.Name = "tabPage3";
-         this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-         this.tabPage3.Size = new System.Drawing.Size(381, 290);
-         this.tabPage3.TabIndex = 2;
-         this.tabPage3.Text = "tabPage3";
-         this.tabPage3.UseVisualStyleBackColor = true;
-         // 
-         // label6
-         // 
-         this.label6.AutoSize = true;
-         this.label6.Location = new System.Drawing.Point(24, 232);
-         this.label6.Name = "label6";
-         this.label6.Size = new System.Drawing.Size(53, 12);
-         this.label6.TabIndex = 10;
-         this.label6.Text = "タスク Id : ";
-         // 
-         // textBox1
-         // 
-         this.textBox1.Location = new System.Drawing.Point(26, 29);
-         this.textBox1.Multiline = true;
-         this.textBox1.Name = "textBox1";
-         this.textBox1.Size = new System.Drawing.Size(330, 202);
-         this.textBox1.TabIndex = 8;
-         this.textBox1.Text = "こんにちは";
-         // 
-         // button1
-         // 
-         this.button1.Location = new System.Drawing.Point(249, 237);
-         this.button1.Name = "button1";
-         this.button1.Size = new System.Drawing.Size(107, 24);
-         this.button1.TabIndex = 9;
-         this.button1.Text = "送信";
-         this.button1.UseVisualStyleBackColor = true;
-         this.button1.Click += new System.EventHandler(this.button1_Click);
-         // 
          // frmMain
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(406, 349);
+         this.ClientSize = new System.Drawing.Size(410, 357);
          this.Controls.Add(this.statusStrip1);
          this.Controls.Add(this.tabControl1);
          this.MaximizeBox = false;
@@ -305,8 +258,6 @@ namespace Auditore.Test
          this.tabPage2.PerformLayout();
          this.statusStrip1.ResumeLayout(false);
          this.statusStrip1.PerformLayout();
-         this.tabPage3.ResumeLayout(false);
-         this.tabPage3.PerformLayout();
          this.ResumeLayout(false);
          this.PerformLayout();
 
@@ -330,10 +281,6 @@ namespace Auditore.Test
       private System.Windows.Forms.Label label7;
       private System.Windows.Forms.StatusStrip statusStrip1;
       private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-      private System.Windows.Forms.TabPage tabPage3;
-      private System.Windows.Forms.Label label6;
-      private System.Windows.Forms.TextBox textBox1;
-      private System.Windows.Forms.Button button1;
    }
 }
 

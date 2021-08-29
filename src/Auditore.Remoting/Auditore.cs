@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Remoting;
@@ -26,18 +25,14 @@ using System.Runtime.Remoting.Channels.Ipc;
 using Auditore.Library;
 using Auditore.Remoting.Enums;
 
-using WebSocketSharp;
-
 namespace Auditore.Remoting
 {
-   public class AuditoreClient : IDisposable
+   public class Auditore : IDisposable
    {
       #region フィールド
 
       private readonly AuditoreRefObject auditoreRefObject;
       private readonly IpcClientChannel clientChannel;
-
-      private WebSocket webSocket;
 
       private bool disposedValue = false;
 
@@ -46,7 +41,8 @@ namespace Auditore.Remoting
       /// <summary>
       /// ミュート状態かどうかを取得します。
       /// </summary>
-      public bool IsMuted {
+      public bool IsMuted
+      {
          get {
             if (this.SpeakerState == AuditoreState.Dying) {
                return true;
@@ -63,7 +59,8 @@ namespace Auditore.Remoting
       /// <summary>
       /// タスクが保留されているかどうかを設定または取得します。
       /// </summary>
-      public bool Pause {
+      public bool Pause
+      {
          get {
             return this.auditoreRefObject.Pause;
          }
@@ -76,7 +73,8 @@ namespace Auditore.Remoting
       /// <summary>
       /// 音量を設定または取得します。
       /// </summary>
-      public int Volume {
+      public int Volume
+      {
          get {
             return this.auditoreRefObject.Volume;
          }
@@ -89,7 +87,8 @@ namespace Auditore.Remoting
       /// <summary>
       /// 話速を設定または取得します。
       /// </summary>
-      public int SpeechSpeed {
+      public int SpeechSpeed
+      {
          get {
             return this.auditoreRefObject.SpeechSpeed;
          }
@@ -101,7 +100,8 @@ namespace Auditore.Remoting
       /// <summary>
       /// トーンを設定または取得します。
       /// </summary>
-      public int Pitch {
+      public int Pitch
+      {
          get {
             return this.auditoreRefObject.Pitch;
          }
@@ -113,7 +113,8 @@ namespace Auditore.Remoting
       /// <summary>
       /// 現在のタスクID取得します。
       /// </summary>
-      public int CurrentTaskId {
+      public int CurrentTaskId
+      {
          get {
             return this.auditoreRefObject.CurrentQueueId;
          }
@@ -122,13 +123,15 @@ namespace Auditore.Remoting
       /// <summary>
       /// 現在のタスク数を取得します。
       /// </summary>
-      public int TaskCount {
+      public int TaskCount
+      {
          get {
             return this.auditoreRefObject.QueueCount;
          }
       }
 
-      public AuditoreState SpeakerState {
+      public AuditoreState SpeakerState
+      {
          get;
          set;
       } = AuditoreState.Speaking;
@@ -136,7 +139,8 @@ namespace Auditore.Remoting
       /// <summary>
       /// 依存プロセスが存在するかどうかを確認します。
       /// </summary>
-      public bool IsProcessRunning {
+      public bool IsProcessRunning
+      {
          get {
             return Process.GetProcesses().Any(x => x.ProcessName == "BouyomiChan");
          }
@@ -145,18 +149,19 @@ namespace Auditore.Remoting
       /// <summary>
       /// このライブラリーのバージョンを取得します。
       /// </summary>
-      public string Version {
+      public string Version
+      {
          get {
             return this.auditoreRefObject.Version;
          }
       }
 
-      ~AuditoreClient()
+      ~Auditore()
       {
          this.Dispose(false);
       }
 
-      public AuditoreClient()
+      public Auditore()
       {
          // IPC クライアントチャンネルを作成
          this.clientChannel = new IpcClientChannel();
@@ -171,24 +176,6 @@ namespace Auditore.Remoting
          );
 
          this.auditoreRefObject = new AuditoreRefObject();
-
-         // WebSocket 送信用にチャットに参加します
-         this.WebSocketChatJoin();
-      }
-
-      private void WebSocketChatJoin()
-      {
-         this.webSocket = new WebSocket("ws://localhost:1337/chat");
-         this.webSocket.ConnectAsync();
-      }
-
-      public void SocketPush(string message)
-      {
-         if (!this.webSocket.IsAlive) {
-            throw new Exception("WebSocket接続が失敗しました");
-         }
-
-         this.webSocket.Send(message);
       }
 
       /// <summary>
@@ -263,7 +250,7 @@ namespace Auditore.Remoting
       public virtual int PushCore(bool isForce, string message, int speechSpeed = -1, int volume = -1)
       {
          if (!this.IsProcessRunning) {
-            throw new Win32Exception("依存プロセスが存在しません");
+            return -1;
          }
 
          if (isForce || this.SpeakerState == AuditoreState.Speaking) {
