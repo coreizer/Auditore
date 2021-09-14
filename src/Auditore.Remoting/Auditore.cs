@@ -17,6 +17,7 @@
 
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
@@ -31,12 +32,19 @@ namespace Auditore.Remoting
    {
       #region フィールド
 
-      private readonly AuditoreRefObject auditoreRefObject;
+      private readonly AuditoreRefObject auditore;
       private readonly IpcClientChannel clientChannel;
 
       private bool disposedValue = false;
 
       #endregion
+
+      public bool IsBouyomiChan
+      {
+         get {
+            return Process.GetProcesses().Any(x => x.ProcessName == "BouyomiChan");
+         }
+      }
 
       /// <summary>
       /// ミュート状態かどうかを取得します。
@@ -44,15 +52,11 @@ namespace Auditore.Remoting
       public bool IsMuted
       {
          get {
-            if (this.SpeakerState == AuditoreState.Dying) {
-               return true;
+            if (!this.IsBouyomiChan) {
+               return false;
             }
 
-            if (this.Volume == 0) {
-               return true;
-            }
-
-            return false;
+            return (this.SpeakerState == AuditoreState.Dying || this.Volume == 0);
          }
       }
 
@@ -62,11 +66,19 @@ namespace Auditore.Remoting
       public bool Pause
       {
          get {
-            return this.auditoreRefObject.Pause;
+            if (!this.IsBouyomiChan) {
+               return false;
+            }
+
+            return this.auditore.Pause;
          }
 
          set {
-            this.auditoreRefObject.Pause = value;
+            if (!this.IsBouyomiChan) {
+               return;
+            }
+
+            this.auditore.Pause = value;
          }
       }
 
@@ -76,11 +88,19 @@ namespace Auditore.Remoting
       public int Volume
       {
          get {
-            return this.auditoreRefObject.Volume;
+            if (!this.IsBouyomiChan) {
+               return 0;
+            }
+
+            return this.auditore.Volume;
          }
 
          set {
-            this.auditoreRefObject.Volume = value;
+            if (!this.IsBouyomiChan) {
+               return;
+            }
+
+            this.auditore.Volume = value;
          }
       }
 
@@ -90,10 +110,18 @@ namespace Auditore.Remoting
       public int SpeechSpeed
       {
          get {
-            return this.auditoreRefObject.SpeechSpeed;
+            if (!this.IsBouyomiChan) {
+               return 50;
+            }
+
+            return this.auditore.SpeechSpeed;
          }
          set {
-            this.auditoreRefObject.SpeechSpeed = value;
+            if (!this.IsBouyomiChan) {
+               return;
+            }
+
+            this.auditore.SpeechSpeed = value;
          }
       }
 
@@ -103,10 +131,18 @@ namespace Auditore.Remoting
       public int Pitch
       {
          get {
-            return this.auditoreRefObject.Pitch;
+            if (!this.IsBouyomiChan) {
+               return 50;
+            }
+
+            return this.auditore.Pitch;
          }
          set {
-            this.auditoreRefObject.Pitch = value;
+            if (!this.IsBouyomiChan) {
+               return;
+            }
+
+            this.auditore.Pitch = value;
          }
       }
 
@@ -116,7 +152,11 @@ namespace Auditore.Remoting
       public int CurrentTaskId
       {
          get {
-            return this.auditoreRefObject.CurrentQueueId;
+            if (!this.IsBouyomiChan) {
+               return -1;
+            }
+
+            return this.auditore.CurrentQueueId;
          }
       }
 
@@ -126,7 +166,11 @@ namespace Auditore.Remoting
       public int TaskCount
       {
          get {
-            return this.auditoreRefObject.QueueCount;
+            if (!this.IsBouyomiChan) {
+               return -1;
+            }
+
+            return this.auditore.QueueCount;
          }
       }
 
@@ -137,22 +181,16 @@ namespace Auditore.Remoting
       } = AuditoreState.Speaking;
 
       /// <summary>
-      /// 依存プロセスが存在するかどうかを確認します。
-      /// </summary>
-      public bool IsProcessRunning
-      {
-         get {
-            return Process.GetProcesses().Any(x => x.ProcessName == "BouyomiChan");
-         }
-      }
-
-      /// <summary>
       /// このライブラリーのバージョンを取得します。
       /// </summary>
       public string Version
       {
          get {
-            return this.auditoreRefObject.Version;
+            if (!this.IsBouyomiChan) {
+               return "Error";
+            }
+
+            return this.auditore.Version;
          }
       }
 
@@ -175,7 +213,7 @@ namespace Auditore.Remoting
             Constants.IPC
          );
 
-         this.auditoreRefObject = new AuditoreRefObject();
+         this.auditore = new AuditoreRefObject();
       }
 
       /// <summary>
@@ -219,7 +257,7 @@ namespace Auditore.Remoting
       /// </summary>
       public void ClaerAll()
       {
-         this.auditoreRefObject.ClearAll();
+         this.auditore.ClearAll();
       }
 
       /// <summary>
@@ -227,8 +265,8 @@ namespace Auditore.Remoting
       /// </summary>
       public void Reset()
       {
-         this.auditoreRefObject.ClearAll();
-         this.auditoreRefObject.Skip();
+         this.auditore.ClearAll();
+         this.auditore.Skip();
       }
 
       /// <summary>
@@ -236,7 +274,9 @@ namespace Auditore.Remoting
       /// </summary>
       public void Skip()
       {
-         this.auditoreRefObject.Skip();
+         if (this.IsBouyomiChan) {
+            this.auditore.Skip();
+         }
       }
 
       /// <summary>
@@ -249,12 +289,12 @@ namespace Auditore.Remoting
       /// <returns>このタスクのIDが返されます</returns>
       public virtual int PushCore(bool isForce, string message, int speechSpeed = -1, int volume = -1)
       {
-         if (!this.IsProcessRunning) {
+         if (!this.IsBouyomiChan) {
             return -1;
          }
 
          if (isForce || this.SpeakerState == AuditoreState.Speaking) {
-            return this.auditoreRefObject.PushMessage(message, speechSpeed, volume);
+            return this.auditore.PushMessage(message, speechSpeed, volume);
          }
 
          return -1;
@@ -278,6 +318,15 @@ namespace Auditore.Remoting
       {
          this.Dispose(true);
          GC.SuppressFinalize(this);
+      }
+
+      public bool IsInstalled()
+      {
+         if (this.IsBouyomiChan) {
+            return this.auditore.IsInstalled();
+         }
+
+         return false;
       }
    }
 }

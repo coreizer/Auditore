@@ -93,5 +93,27 @@ namespace Auditore.Test
       private void button1_Click(object sender, EventArgs e)
       {
       }
+
+      private void trackBarTest_Scroll(object sender, EventArgs e)
+      {
+         this.auditore.Volume = (sender as TrackBar).Value;
+         this.label1.Text = $"音量 : { this.auditore.Volume }";
+      }
+
+      private void trackBar1_Scroll(object sender, EventArgs e)
+      {
+         this.auditore.SpeechSpeed = (sender as TrackBar).Value;
+         this.label2.Text = $"速度 : { this.auditore.SpeechSpeed }";
+      }
+
+      private void button1_Click_1(object sender, EventArgs e)
+      {
+         MessageBox.Show($"IsInstalled: { this.auditore.IsInstalled() }");
+      }
+
+      private void button2_Click(object sender, EventArgs e)
+      {
+         MessageBox.Show($"IsBouyomiChan: { this.auditore.IsBouyomiChan }");
+      }
    }
 }

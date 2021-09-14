@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Linq;
 
 using FNF.BouyomiChanApp;
 using FNF.Utility;
@@ -47,7 +48,8 @@ namespace Auditore.Library
       /// <summary>
       /// 現在実行されているかどうかを取得します。
       /// </summary>
-      public bool NowPlaying {
+      public bool NowPlaying
+      {
          get {
             return Pub.NowPlaying;
          }
@@ -56,7 +58,8 @@ namespace Auditore.Library
       /// <summary>
       /// 現在実行されているタスクのメッセージを取得します。
       /// </summary>
-      public string Source {
+      public string Source
+      {
          get {
             return Pub.FormMain.textBoxSource.Text;
          }
@@ -65,7 +68,8 @@ namespace Auditore.Library
       /// <summary>
       /// タスクが保留されているかどうかを設定または取得します。
       /// </summary>
-      public bool Pause {
+      public bool Pause
+      {
          get {
             return Pub.Pause;
          }
@@ -78,7 +82,8 @@ namespace Auditore.Library
       /// <summary>
       /// 現在のタスクID取得します。
       /// </summary>
-      public int CurrentQueueId {
+      public int CurrentQueueId
+      {
          get {
             return Pub.NowTaskId;
          }
@@ -87,7 +92,8 @@ namespace Auditore.Library
       /// <summary>
       /// 現在のタスク数を取得します。
       /// </summary>
-      public int QueueCount {
+      public int QueueCount
+      {
          get {
             return Pub.TalkTaskCount;
          }
@@ -96,7 +102,8 @@ namespace Auditore.Library
       /// <summary>
       /// 話速を設定または取得します。
       /// </summary>
-      public int SpeechSpeed {
+      public int SpeechSpeed
+      {
          get {
             return Pub.FormMain.trackBarSpeed.Value;
          }
@@ -114,7 +121,8 @@ namespace Auditore.Library
       /// <summary>
       /// 音量を設定または取得します。
       /// </summary>
-      public int Volume {
+      public int Volume
+      {
          get {
             return Pub.FormMain.trackBarVolume.Value;
          }
@@ -133,7 +141,8 @@ namespace Auditore.Library
       /// <summary>
       /// トーンを設定または取得します。
       /// </summary>
-      public int Pitch {
+      public int Pitch
+      {
          get {
             return Pub.FormMain.trackBarTone.Value;
          }
@@ -152,7 +161,8 @@ namespace Auditore.Library
       /// <summary>
       /// このライブラリーのバージョンを取得します。
       /// </summary>
-      public string Version {
+      public string Version
+      {
          get {
             return VersionString;
          }
@@ -235,6 +245,15 @@ namespace Auditore.Library
       public override object InitializeLifetimeService()
       {
          return null;
+      }
+
+      public bool IsInstalled()
+      {
+         if (Pub.Data.Plugins == null) {
+            return false;
+         }
+
+         return Pub.Data.Plugins.Any(x => x.Name == "auditore" && x.Enabled);
       }
    }
 }
