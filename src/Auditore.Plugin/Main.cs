@@ -25,6 +25,7 @@ using Auditore.Library;
 using Auditore.Plugin.Settings;
 using FNF.BouyomiChanApp;
 using FNF.XmlSerializerSetting;
+using WebSocketSharp.Server;
 
 namespace Auditore.Plugin
 {
@@ -33,6 +34,7 @@ namespace Auditore.Plugin
       #region フィールド
 
       private IpcServerChannel serverChannel;
+      private WebSocketServer webSocket;
 
       private PluginSettings settings;
       private PluginFormData settingFormData;
@@ -110,6 +112,15 @@ namespace Auditore.Plugin
             System.Windows.Forms.MessageBox.Show($"チャンネルの登録に失敗しました: { ex.Message }", "プラグイン エラー", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
          }
 
+         try {
+            this.webSocket = new WebSocketServer(1337);
+            this.webSocket.AddWebSocketService<WebSockets.Chat>("/chat");
+            this.webSocket.Start();
+         }
+         catch (Exception ex) {
+            System.Windows.Forms.MessageBox.Show($"チャンネルの登録に失敗しました: { ex.Message }", "プラグイン エラー", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+         }
+
          // プラグイン設定を初期化します
          this.settings = new PluginSettings(this);
          this.settings.Load(Constants.Settings);
@@ -124,6 +135,10 @@ namespace Auditore.Plugin
       public void End()
       {
          ChannelServices.UnregisterChannel(this.serverChannel);
+
+         if (this.webSocket != null) {
+            this.webSocket.Stop();
+         }
       }
    }
 }

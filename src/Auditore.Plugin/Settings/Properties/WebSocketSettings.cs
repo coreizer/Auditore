@@ -15,46 +15,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.ComponentModel;
 using FNF.XmlSerializerSetting;
 
-namespace Auditore.Plugin.Settings
+namespace Auditore.Plugin.Settings.Properties
 {
-   public class PluginSettings : SettingsBase
+   public class WebSocketSettings : ISettingPropertyGrid
    {
-      protected readonly Main plugin;
+      #region フィールド
 
-      public virtual PropertieModel Properties
+      private readonly PluginSettings settings;
+
+      #endregion
+
+      #region プロパティ
+
+      [Category("ウェブソケット")]
+      [DisplayName("ポート設定")]
+      public int Port
       {
-         get; set;
-      } = new PropertieModel();
-
-      public class PropertieModel
-      {
-         public virtual WebSocktModel WebSockt { get; set; } = new WebSocktModel();
-
-         public class WebSocktModel
-         {
-            public virtual int Port { get; set; } = 1337;
+         get {
+            return this.settings.Properties.WebSockt.Port;
+         }
+         set {
+            this.settings.Properties.WebSockt.Port = value;
          }
       }
 
-      public PluginSettings()
+      #endregion
+
+      public WebSocketSettings(PluginSettings settings)
       {
+         this.settings = settings;
       }
 
-      public PluginSettings(Main plugin)
+      public string GetName()
       {
-         this.plugin = plugin;
-      }
-
-      public override void ReadSettings()
-      {
-         base.ReadSettings();
-      }
-
-      public override void WriteSettings()
-      {
-         base.WriteSettings();
+         return "ウェブソケットの設定";
       }
    }
 }

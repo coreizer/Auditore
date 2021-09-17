@@ -39,6 +39,8 @@ namespace Auditore.Remoting
 
       #endregion
 
+      #region プロパティ
+
       public bool IsBouyomiChan
       {
          get {
@@ -193,6 +195,8 @@ namespace Auditore.Remoting
             return this.auditore.Version;
          }
       }
+
+      #endregion
 
       ~Auditore()
       {

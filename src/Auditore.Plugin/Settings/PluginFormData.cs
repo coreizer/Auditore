@@ -16,12 +16,21 @@
  */
 
 using FNF.XmlSerializerSetting;
+using Auditore.Plugin.Settings.Properties;
 
 namespace Auditore.Plugin.Settings
 {
    public class PluginFormData : ISettingFormData
    {
-      public PluginSettings settings;
+      #region フィールド
+
+      private PluginSettings settings;
+
+      public WebSocketSettings webSocketSettings;
+
+      #endregion
+
+      #region プロパティ
 
       /// <summary>
       /// プラグインのタイトルを設定します
@@ -47,9 +56,14 @@ namespace Auditore.Plugin.Settings
          }
       }
 
+      #endregion
+
       public PluginFormData(PluginSettings settings)
       {
          this.settings = settings;
+
+         // 設定初期化
+         this.webSocketSettings = new WebSocketSettings(settings);
       }
    }
 }
