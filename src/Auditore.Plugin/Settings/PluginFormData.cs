@@ -16,54 +16,51 @@
  */
 
 using FNF.XmlSerializerSetting;
-using Auditore.Plugin.Settings.Properties;
 
 namespace Auditore.Plugin.Settings
 {
-   public class PluginFormData : ISettingFormData
-   {
-      #region フィールド
+    public class PluginFormData : ISettingFormData
+    {
+        #region フィールド
 
-      private PluginSettings settings;
+        private PluginSettings settings;
 
-      public WebSocketSettings webSocketSettings;
+        #endregion
 
-      #endregion
+        #region プロパティ
 
-      #region プロパティ
+        /// <summary>
+        /// プラグインのタイトルを設定します
+        /// </summary>
+        public string Title
+        {
+            get {
+                return "Auditore プラグイン";
+            }
+        }
 
-      /// <summary>
-      /// プラグインのタイトルを設定します
-      /// </summary>
-      public string Title {
-         get {
-            return "Auditore プラグイン";
-         }
-      }
+        public bool ExpandAll
+        {
+            get {
+                return false;
+            }
+        }
 
-      public bool ExpandAll {
-         get {
-            return false;
-         }
-      }
+        /// <summary>
+        /// プラグインの設定を取得します
+        /// </summary>
+        public SettingsBase Setting
+        {
+            get {
+                return this.settings;
+            }
+        }
 
-      /// <summary>
-      /// プラグインの設定を取得します
-      /// </summary>
-      public SettingsBase Setting {
-         get {
-            return this.settings;
-         }
-      }
+        #endregion
 
-      #endregion
-
-      public PluginFormData(PluginSettings settings)
-      {
-         this.settings = settings;
-
-         // 設定初期化
-         this.webSocketSettings = new WebSocketSettings(settings);
-      }
-   }
+        public PluginFormData(PluginSettings settings)
+        {
+            this.settings = settings;
+        }
+    }
 }

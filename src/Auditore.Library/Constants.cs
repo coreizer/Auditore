@@ -17,26 +17,26 @@
 
 namespace Auditore.Library
 {
-   public static class Constants
-   {
-      /// <summary>
-      /// チャンネル名を取得します。
-      /// </summary>
-      public static readonly string ChannelName = "message";
+    public static class Constants
+    {
+        /// <summary>
+        /// チャンネル名を取得します。
+        /// </summary>
+        public static readonly string ChannelName = "message";
 
-      /// <summary>
-      /// チャンネルオブジェクトUriを取得します。
-      /// </summary>
-      public static readonly string PortName = "auditore";
+        /// <summary>
+        /// チャンネルオブジェクトUriを取得します。
+        /// </summary>
+        public static readonly string PortName = "auditore";
 
-      /// <summary>
-      /// チャンネルIPCを取得します。
-      /// </summary>
-      public static readonly string IPC = "ipc://auditore/message";
+        /// <summary>
+        /// チャンネルIPCを取得します。
+        /// </summary>
+        public static readonly string IPC = "ipc://auditore/message";
 
-      /// <summary>
-      /// プラグイン設定パスを取得します。
-      /// </summary>
-      public static readonly string Settings = "auditore.setting";
-   }
+        /// <summary>
+        /// プラグイン設定パスを取得します。
+        /// </summary>
+        public static readonly string Settings = "auditore.setting";
+    }
 }

@@ -17,320 +17,297 @@
 
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Ipc;
 
 using Auditore.Library;
-using Auditore.Remoting.Enums;
 
 namespace Auditore.Remoting
 {
-   public class Auditore : IDisposable
-   {
-      #region フィールド
+    public class Auditore : IDisposable
+    {
+        #region フィールド
 
-      private readonly AuditoreRefObject auditore;
-      private readonly IpcClientChannel clientChannel;
+        private readonly AuditoreRefObject auditoreObject;
+        private readonly IpcClientChannel clientChannel;
 
-      private bool disposedValue = false;
+        private bool disposedValue = false;
 
-      #endregion
+        #endregion
 
-      #region プロパティ
+        #region プロパティ
 
-      public bool IsBouyomiChan
-      {
-         get {
-            return Process.GetProcesses().Any(x => x.ProcessName == "BouyomiChan");
-         }
-      }
+        public bool IsBouyomiChan
+        {
+            get {
+                return Process.GetProcesses().Any(x => x.ProcessName == "BouyomiChan");
+            }
+        }
 
-      /// <summary>
-      /// ミュート状態かどうかを取得します。
-      /// </summary>
-      public bool IsMuted
-      {
-         get {
+        /// <summary>
+        /// ミュート状態かどうかを取得します。
+        /// </summary>
+        public bool IsMuted
+        {
+            get {
+                return (!this.IsBouyomiChan && this.Volume <= 0);
+            }
+        }
+
+        /// <summary>
+        /// タスクが保留されているかどうかを設定または取得します。
+        /// </summary>
+        public bool Pause
+        {
+            get {
+                if (!this.IsBouyomiChan) {
+                    return false;
+                }
+
+                return this.auditoreObject.Pause;
+            }
+
+            set {
+                if (!this.IsBouyomiChan) {
+                    return;
+                }
+
+                this.auditoreObject.Pause = value;
+            }
+        }
+
+        /// <summary>
+        /// 音量を設定または取得します。
+        /// </summary>
+        public int Volume
+        {
+            get {
+                if (!this.IsBouyomiChan) {
+                    return 0;
+                }
+
+                return this.auditoreObject.Volume;
+            }
+
+            set {
+                if (!this.IsBouyomiChan) {
+                    return;
+                }
+
+                this.auditoreObject.Volume = value;
+            }
+        }
+
+        /// <summary>
+        /// 話速を設定または取得します。
+        /// </summary>
+        public int SpeechSpeed
+        {
+            get {
+                if (!this.IsBouyomiChan) {
+                    return 50;
+                }
+
+                return this.auditoreObject.SpeechSpeed;
+            }
+            set {
+                if (!this.IsBouyomiChan) {
+                    return;
+                }
+
+                this.auditoreObject.SpeechSpeed = value;
+            }
+        }
+
+        /// <summary>
+        /// トーンを設定または取得します。
+        /// </summary>
+        public int Pitch
+        {
+            get {
+                if (!this.IsBouyomiChan) {
+                    return 50;
+                }
+
+                return this.auditoreObject.Pitch;
+            }
+            set {
+                if (!this.IsBouyomiChan) {
+                    return;
+                }
+
+                this.auditoreObject.Pitch = value;
+            }
+        }
+
+        /// <summary>
+        /// 現在のタスクID取得します。
+        /// </summary>
+        public int CurrentTaskId
+        {
+            get {
+                if (!this.IsBouyomiChan) {
+                    return -1;
+                }
+
+                return this.auditoreObject.CurrentTaskId;
+            }
+        }
+
+        /// <summary>
+        /// 現在のタスク数を取得します。
+        /// </summary>
+        public int TaskCount
+        {
+            get {
+                if (!this.IsBouyomiChan) {
+                    return -1;
+                }
+
+                return this.auditoreObject.TaskCount;
+            }
+        }
+
+        /// <summary>
+        /// このライブラリーのバージョンを取得します。
+        /// </summary>
+        public string Version
+        {
+            get {
+                if (!this.IsBouyomiChan) {
+                    return "Error";
+                }
+
+                return this.auditoreObject.Version;
+            }
+        }
+
+        #endregion
+
+        ~Auditore()
+        {
+            this.Dispose(false);
+        }
+
+        public Auditore()
+        {
+            // IPC クライアントチャンネルを作成
+            this.clientChannel = new IpcClientChannel();
+
+            // チャンネルを登録します
+            ChannelServices.RegisterChannel(this.clientChannel, true);
+
+            // リモートオブジェクトの型を登録します
+            RemotingConfiguration.RegisterWellKnownClientType(
+               typeof(AuditoreRefObject),
+               Constants.IPC
+            );
+
+            this.auditoreObject = new AuditoreRefObject();
+        }
+
+        /// <summary>
+        /// タスクにメッセージを追加します。
+        /// </summary>
+        /// <param name="message">メッセージ</param>
+        /// <param name="isForce">強制的にメッセージをミュート状態に関わらず、タスクに追加します</param>
+        /// <returns>このタスクのIDが返されます</returns>
+        public int Push(string message)
+        {
+            return this.PushCore(message);
+        }
+
+        /// <summary>
+        /// タスクにメッセージを追加します。
+        /// </summary>
+        /// <param name="message">メッセージ</param>
+        /// <param name="speechSpeed">話速</param>
+        /// <param name="isForce">強制的にメッセージをミュート状態に関わらず、タスクに追加します</param>
+        /// <returns>このタスクのIDが返されます</returns>
+        public int Push(string message, int speechSpeed)
+        {
+            return this.PushCore(message, speechSpeed);
+        }
+
+        /// <summary>
+        /// タスクにメッセージを追加します。
+        /// </summary>
+        /// <param name="message">メッセージ</param>
+        /// <param name="speechSpeed">話速</param>
+        /// <param name="volume">音量</param>
+        /// <param name="isForce">強制的にメッセージをミュート状態に関わらず、タスクに追加します</param>
+        /// <returns>このタスクのIDが返されます</returns>
+        public int Push(string message, int speechSpeed, int volume)
+        {
+            return this.PushCore(message, speechSpeed, volume);
+        }
+
+        /// <summary>
+        /// タスクにメッセージを追加します
+        /// </summary>
+        /// <param name="isForce">強制的にメッセージをミュート状態に関わらず、タスクに追加します</param>
+        /// <param name="message">メッセージ</param>
+        /// <param name="speechSpeed">話速</param>
+        /// <param name="volume">音量</param>
+        /// <returns>このタスクのIDが返されます</returns>
+        public virtual int PushCore(string message, int speechSpeed = -1, int volume = -1)
+        {
             if (!this.IsBouyomiChan) {
-               return false;
+                return -1;
             }
 
-            return (this.SpeakerState == AuditoreState.Dying || this.Volume == 0);
-         }
-      }
+            return this.auditoreObject.PushMessage(message, speechSpeed, volume);
+        }
 
-      /// <summary>
-      /// タスクが保留されているかどうかを設定または取得します。
-      /// </summary>
-      public bool Pause
-      {
-         get {
-            if (!this.IsBouyomiChan) {
-               return false;
+        /// <summary>
+        /// 予約されているタスクをすべて削除します。
+        /// </summary>
+        public void ClaerAll()
+        {
+            this.auditoreObject.ClearAll();
+        }
+
+        /// <summary>
+        /// 全てのタスクをキャンセルします。
+        /// </summary>
+        public void Reset()
+        {
+            if (this.IsBouyomiChan) {
+                this.auditoreObject.ClearAll();
+                this.auditoreObject.Skip();
             }
+        }
 
-            return this.auditore.Pause;
-         }
-
-         set {
-            if (!this.IsBouyomiChan) {
-               return;
+        /// <summary>
+        ///	現在進行中のタスクをスキップします。
+        /// </summary>
+        public void Skip()
+        {
+            if (this.IsBouyomiChan) {
+                this.auditoreObject.Skip();
             }
+        }
 
-            this.auditore.Pause = value;
-         }
-      }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposedValue) {
+                try {
+                    ChannelServices.UnregisterChannel(this.clientChannel);
+                }
+                catch (Exception ex) {
+                    Debug.WriteLine(ex.Message);
+                }
 
-      /// <summary>
-      /// 音量を設定または取得します。
-      /// </summary>
-      public int Volume
-      {
-         get {
-            if (!this.IsBouyomiChan) {
-               return 0;
+                this.disposedValue = true;
             }
+        }
 
-            return this.auditore.Volume;
-         }
-
-         set {
-            if (!this.IsBouyomiChan) {
-               return;
-            }
-
-            this.auditore.Volume = value;
-         }
-      }
-
-      /// <summary>
-      /// 話速を設定または取得します。
-      /// </summary>
-      public int SpeechSpeed
-      {
-         get {
-            if (!this.IsBouyomiChan) {
-               return 50;
-            }
-
-            return this.auditore.SpeechSpeed;
-         }
-         set {
-            if (!this.IsBouyomiChan) {
-               return;
-            }
-
-            this.auditore.SpeechSpeed = value;
-         }
-      }
-
-      /// <summary>
-      /// トーンを設定または取得します。
-      /// </summary>
-      public int Pitch
-      {
-         get {
-            if (!this.IsBouyomiChan) {
-               return 50;
-            }
-
-            return this.auditore.Pitch;
-         }
-         set {
-            if (!this.IsBouyomiChan) {
-               return;
-            }
-
-            this.auditore.Pitch = value;
-         }
-      }
-
-      /// <summary>
-      /// 現在のタスクID取得します。
-      /// </summary>
-      public int CurrentTaskId
-      {
-         get {
-            if (!this.IsBouyomiChan) {
-               return -1;
-            }
-
-            return this.auditore.CurrentQueueId;
-         }
-      }
-
-      /// <summary>
-      /// 現在のタスク数を取得します。
-      /// </summary>
-      public int TaskCount
-      {
-         get {
-            if (!this.IsBouyomiChan) {
-               return -1;
-            }
-
-            return this.auditore.QueueCount;
-         }
-      }
-
-      public AuditoreState SpeakerState
-      {
-         get;
-         set;
-      } = AuditoreState.Speaking;
-
-      /// <summary>
-      /// このライブラリーのバージョンを取得します。
-      /// </summary>
-      public string Version
-      {
-         get {
-            if (!this.IsBouyomiChan) {
-               return "Error";
-            }
-
-            return this.auditore.Version;
-         }
-      }
-
-      #endregion
-
-      ~Auditore()
-      {
-         this.Dispose(false);
-      }
-
-      public Auditore()
-      {
-         // IPC クライアントチャンネルを作成
-         this.clientChannel = new IpcClientChannel();
-
-         // チャンネルを登録します
-         ChannelServices.RegisterChannel(this.clientChannel, true);
-
-         // リモートオブジェクトの型を登録します
-         RemotingConfiguration.RegisterWellKnownClientType(
-            typeof(AuditoreRefObject),
-            Constants.IPC
-         );
-
-         this.auditore = new AuditoreRefObject();
-      }
-
-      /// <summary>
-      /// タスクにメッセージを追加します。
-      /// </summary>
-      /// <param name="message">メッセージ</param>
-      /// <param name="isForce">強制的にメッセージをミュート状態に関わらず、タスクに追加します</param>
-      /// <returns>このタスクのIDが返されます</returns>
-      public int Push(string message, bool isForce = false)
-      {
-         return this.PushCore(isForce, message);
-      }
-
-      /// <summary>
-      /// タスクにメッセージを追加します。
-      /// </summary>
-      /// <param name="message">メッセージ</param>
-      /// <param name="speechSpeed">話速</param>
-      /// <param name="isForce">強制的にメッセージをミュート状態に関わらず、タスクに追加します</param>
-      /// <returns>このタスクのIDが返されます</returns>
-      public int Push(string message, int speechSpeed, bool isForce = false)
-      {
-         return this.PushCore(isForce, message, speechSpeed);
-      }
-
-      /// <summary>
-      /// タスクにメッセージを追加します。
-      /// </summary>
-      /// <param name="message">メッセージ</param>
-      /// <param name="speechSpeed">話速</param>
-      /// <param name="volume">音量</param>
-      /// <param name="isForce">強制的にメッセージをミュート状態に関わらず、タスクに追加します</param>
-      /// <returns>このタスクのIDが返されます</returns>
-      public int Push(string message, int speechSpeed, int volume, bool isForce = false)
-      {
-         return this.PushCore(isForce, message, speechSpeed, volume);
-      }
-
-      /// <summary>
-      /// 予約されているタスクをすべて削除します。
-      /// </summary>
-      public void ClaerAll()
-      {
-         this.auditore.ClearAll();
-      }
-
-      /// <summary>
-      /// 全てのタスクをキャンセルします。
-      /// </summary>
-      public void Reset()
-      {
-         this.auditore.ClearAll();
-         this.auditore.Skip();
-      }
-
-      /// <summary>
-      ///	現在進行中のタスクをスキップします。
-      /// </summary>
-      public void Skip()
-      {
-         if (this.IsBouyomiChan) {
-            this.auditore.Skip();
-         }
-      }
-
-      /// <summary>
-      /// タスクにメッセージを追加します
-      /// </summary>
-      /// <param name="isForce">強制的にメッセージをミュート状態に関わらず、タスクに追加します</param>
-      /// <param name="message">メッセージ</param>
-      /// <param name="speechSpeed">話速</param>
-      /// <param name="volume">音量</param>
-      /// <returns>このタスクのIDが返されます</returns>
-      public virtual int PushCore(bool isForce, string message, int speechSpeed = -1, int volume = -1)
-      {
-         if (!this.IsBouyomiChan) {
-            return -1;
-         }
-
-         if (isForce || this.SpeakerState == AuditoreState.Speaking) {
-            return this.auditore.PushMessage(message, speechSpeed, volume);
-         }
-
-         return -1;
-      }
-
-      protected virtual void Dispose(bool disposing)
-      {
-         if (!this.disposedValue) {
-            try {
-               ChannelServices.UnregisterChannel(this.clientChannel);
-            }
-            catch (Exception ex) {
-               Debug.WriteLine(ex.Message);
-            }
-
-            this.disposedValue = true;
-         }
-      }
-
-      public void Dispose()
-      {
-         this.Dispose(true);
-         GC.SuppressFinalize(this);
-      }
-
-      public bool IsInstalled()
-      {
-         if (this.IsBouyomiChan) {
-            return this.auditore.IsInstalled();
-         }
-
-         return false;
-      }
-   }
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+    }
 }
