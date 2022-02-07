@@ -55,7 +55,7 @@ namespace Auditore.Library
         }
 
         /// <summary>
-        /// 現在実行されているタスクのメッセージを取得します。
+        /// 現在実行されているタスクのテキストテキストメッセージを取得します。
         /// </summary>
         public string Source
         {
@@ -101,7 +101,7 @@ namespace Auditore.Library
         /// <summary>
         /// 話速を設定または取得します。
         /// </summary>
-        public int SpeechSpeed
+        public int TalkSpeed
         {
             get {
                 return Pub.FormMain.trackBarSpeed.Value;
@@ -170,54 +170,54 @@ namespace Auditore.Library
         #endregion プロパティ
 
         /// <summary>
-        /// タスクにメッセージを追加します。
+        /// タスクにテキストテキストメッセージを追加します。
         /// </summary>
-        /// <param name="message">メッセージ</param>
+        /// <param name="text">テキストテキストテキストメッセージ</param>
         /// <returns>このタスクのIDが返されます。</returns>
-        public int PushMessage(string message)
+        public int PushText(string text)
         {
-            return this.CorePushMessage(message, this.SpeechSpeed, this.Volume, VoiceType.Default);
+            return this.CorePushText(text, this.TalkSpeed, this.Volume, VoiceType.Default);
         }
 
         /// <summary>
-        /// タスクにメッセージを追加します。
+        /// タスクにテキストテキストメッセージを追加します。
         /// </summary>
-        /// <param name="message">メッセージ</param>
-        /// <param name="speechSpeed">話速設定</param>
+        /// <param name="text">テキストテキストメッセージ</param>
+        /// <param name="talkSpeed">話速設定</param>
         /// <returns>このタスクのIDが返されます</returns>
-        public int PushMessage(string message, int speechSpeed)
+        public int PushText(string text, int talkSpeed)
         {
-            return this.CorePushMessage(message, speechSpeed, this.Volume, VoiceType.Default);
+            return this.CorePushText(text, talkSpeed, this.Volume, VoiceType.Default);
         }
 
         /// <summary>
-        /// タスクにメッセージを追加します。
+        /// タスクにテキストテキストメッセージを追加します。
         /// </summary>
-        /// <param name="message">メッセージ</param>
-        /// <param name="speechSpeed">話速設定</param>
+        /// <param name="text">テキストテキストメッセージ</param>
+        /// <param name="talkSpeed">話速設定</param>
         /// <param name="volume">音量</param>
         /// <returns>このタスクのIDが返されます</returns>
-        public int PushMessage(string message, int speechSpeed, int volume)
+        public int PushText(string text, int talkSpeed, int volume)
         {
-            return this.CorePushMessage(message, speechSpeed, volume, VoiceType.Default);
+            return this.CorePushText(text, talkSpeed, volume, VoiceType.Default);
         }
 
         /// <summary>
-        /// タスクにメッセージを追加します。
+        /// タスクにテキストテキストメッセージを追加します。
         /// </summary>
-        /// <param name="message">メッセージ</param>
-        /// <param name="speechSpeed">話速設定</param>
+        /// <param name="text">テキストテキストメッセージ</param>
+        /// <param name="talkSpeed">話速設定</param>
         /// <param name="volume">音量</param>
         /// <param name="voice">ボイスタイプ</param>
         /// <returns>このタスクのIDが返されます</returns>
-        public int PushMessage(string message, int speechSpeed, int volume, VoiceType voice)
+        public int PushText(string text, int talkSpeed, int volume, VoiceType voice)
         {
-            return this.CorePushMessage(message, speechSpeed, volume, voice);
+            return this.CorePushText(text, talkSpeed, volume, voice);
         }
 
-        private int CorePushMessage(string message, int speechSpeed, int volume, VoiceType voice)
+        private int CorePushText(string text, int talkSpeed, int volume, VoiceType voice)
         {
-            return Pub.AddTalkTask(message, speechSpeed, volume, (VoiceType)voice);
+            return Pub.AddTalkTask(text, talkSpeed, volume, (VoiceType)voice);
         }
 
         /// <summary>
