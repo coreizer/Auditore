@@ -1,5 +1,7 @@
-﻿/*
- * © 2021 coreizer
+﻿#region License Info
+
+/*
+ * © 2019-2022 coreizer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,28 +17,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#endregion
+
 namespace Auditore.Library
 {
-    public static class Constants
-    {
-        /// <summary>
-        /// チャンネル名を取得します。
-        /// </summary>
-        public static readonly string ChannelName = "message";
+   public static class Constants
+   {
+      /// <summary>
+      /// プラグインバージョンが定義されています。
+      /// </summary>
+      public const string VersionString = "1.5";
 
-        /// <summary>
-        /// チャンネルオブジェクトUriを取得します。
-        /// </summary>
-        public static readonly string PortName = "auditore";
+      /// <summary>
+      /// チャンネル名が定義されています。
+      /// </summary>
+      public const string ChannelName = "message";
 
-        /// <summary>
-        /// チャンネルIPCを取得します。
-        /// </summary>
-        public static readonly string IPC = "ipc://auditore/message";
+      /// <summary>
+      /// チャンネルオブジェクトUriが定義されています。
+      /// </summary>
+      public const string PortName = "auditore";
 
-        /// <summary>
-        /// プラグイン設定パスを取得します。
-        /// </summary>
-        public static readonly string Settings = "auditore.setting";
-    }
+      /// <summary>
+      /// チャンネルIPCが定義されています。
+      /// </summary>
+      public const string IPC = "ipc://auditore/message";
+
+      /// <summary>
+      /// プラグイン設定パスが定義されています。
+      /// </summary>
+      public const string Settings = "auditore.setting";
+   }
 }

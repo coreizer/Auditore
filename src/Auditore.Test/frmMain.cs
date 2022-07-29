@@ -1,5 +1,7 @@
-﻿/*
- * © 2019-2021 coreizer
+﻿#region License Info
+
+/*
+ * © 2019-2022 coreizer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,96 +17,97 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#endregion
+
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Auditore.Test
 {
-    public partial class frmMain : Form
-    {
-        private readonly Remoting.AuditoreClient client = new Remoting.AuditoreClient();
+   public partial class frmMain : Form
+   {
+      private readonly Remoting.AuditoreClient client = new Remoting.AuditoreClient();
 
-        public frmMain()
-        {
-            this.InitializeComponent();
-            this.Playground();
-        }
+      public frmMain()
+      {
+         this.InitializeComponent();
+         this.Text = $"{this.Text} - {Application.ProductVersion}";
+         this.UpdateData();
+      }
 
-        private void Playground()
-        {
-            try {
-                this.trackBarTest.Value = this.client.Volume;
-                this.label1.Text = $"音量 : { this.client.Volume }";
+      private void UpdateData()
+      {
+         try {
+            this.trackBarTest.Value = this.client.Volume;
+            this.labelVolume.Text = $"音量 : {this.client.Volume}";
 
-                this.trackBar1.Value = this.client.TalkSpeed;
-                this.label2.Text = $"速度 : { this.client.TalkSpeed }";
+            this.trackBar1.Value = this.client.TalkSpeed;
+            this.labelSpeed.Text = $"速度 : {this.client.TalkSpeed}";
 
-                this.label3.Text = $"タスク Id : { this.client.CurrentTaskId }";
-                this.label4.Text = $"タスク数 : { this.client.TaskCount }";
+            this.labelTaskId.Text = $"タスク Id : {this.client.CurrentTaskId}";
+            this.labelTaskCount.Text = $"タスク数 : {this.client.TaskCount}";
 
-                this.label5.Text = DateTime.Now.ToString();
-            }
-            catch (Exception ex) {
-                MessageBox.Show(ex.Message, "取得に失敗しました", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                this.label5.Text = "取得に失敗しました";
-            }
-        }
+            this.labelUpdatedAt.Text = DateTime.Now.ToString();
+         }
+         catch (Exception ex) {
+            MessageBox.Show(ex.Message, "取得に失敗しました", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            this.labelUpdatedAt.Text = "取得に失敗しました";
+         }
+      }
 
-        private void ButtonSend_Click(object sender, EventArgs e)
-        {
-            try {
-                int taskId = this.client.Push(this.textBoxMessage.Text);
-                this.label7.Text = $"タスク Id : { taskId }";
-                Debug.WriteLine($"追加されたタスクId: { taskId }");
+      private void ButtonSend_Click(object sender, EventArgs e)
+      {
+         try {
+            int taskId = this.client.Push(this.textBoxMessage.Text);
+            this.label7.Text = $"タスク Id : {taskId}";
+            this.UpdateData();
+         }
+         catch (Exception ex) {
+            MessageBox.Show(ex.Message, "送信に失敗しました", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+         }
+      }
 
-                this.Playground();
-            }
-            catch (Exception ex) {
-                MessageBox.Show(ex.Message, "送信に失敗しました", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        private void trackBarTest_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            try {
-                this.client.Volume = (sender as TrackBar).Value;
-            }
-            catch (Exception ex) {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        private void trackBar1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            try {
-                this.client.TalkSpeed = (sender as TrackBar).Value;
-            }
-            catch (Exception ex) {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            this.Playground();
-        }
-
-        private void trackBarTest_Scroll(object sender, EventArgs e)
-        {
+      private void trackBarTest_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+      {
+         try {
             this.client.Volume = (sender as TrackBar).Value;
-            this.label1.Text = $"音量 : { this.client.Volume }";
-        }
+         }
+         catch (Exception ex) {
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+         }
+      }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
+      private void trackBar1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+      {
+         try {
             this.client.TalkSpeed = (sender as TrackBar).Value;
-            this.label2.Text = $"速度 : { this.client.TalkSpeed }";
-        }
+         }
+         catch (Exception ex) {
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+         }
+      }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show($"IsBouyomiChan: { this.client.IsBouyomiChan }");
-        }
-    }
+      private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+      {
+         this.UpdateData();
+      }
+
+      private void trackBarTest_Scroll(object sender, EventArgs e)
+      {
+         this.client.Volume = (sender as TrackBar).Value;
+         this.labelVolume.Text = $"音量 : {this.client.Volume}";
+      }
+
+      private void trackBar1_Scroll(object sender, EventArgs e)
+      {
+         this.client.TalkSpeed = (sender as TrackBar).Value;
+         this.labelSpeed.Text = $"速度 : {this.client.TalkSpeed}";
+      }
+
+      private void button2_Click(object sender, EventArgs e)
+      {
+         MessageBox.Show($"IsBouyomiChan: {this.client.IsBouyomiChan}");
+      }
+   }
 }

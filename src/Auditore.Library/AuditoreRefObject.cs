@@ -1,5 +1,7 @@
-﻿/*
- * © 2021 coreizer
+﻿#region License Info
+
+/*
+ * © 2019-2022 coreizer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,235 +17,252 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
+#endregion
 
+using System;
+using System.Diagnostics;
 using FNF.BouyomiChanApp;
 using FNF.Utility;
 
 namespace Auditore.Library
 {
-    public sealed class AuditoreRefObject : MarshalByRefObject
-    {
-        #region フィールド
+   public sealed class AuditoreRefObject : MarshalByRefObject
+   {
+      #region フィールド
 
-        private const string VersionString = "1.3";
+      private const int DEFAULT_SPEED = 100;
+      private const int MAX_SPEED = 200;
+      private const int MIN_SPEED = 50;
 
-        private const int DefaultSpeed = 100;
-        private const int MaxSpeed = 200;
-        private const int MinSpeed = 50;
+      private const int DEFAULT_VOLUME = 50;
+      private const int MAX_VOLUME = 100;
+      private const int MIN_VOLUME = 0;
 
-        private const int DefaultVolume = 50;
-        private const int MaxVolume = 100;
-        private const int MinVolume = 0;
+      private const int DEFAULT_PITCH = 100;
+      private const int MAX_PITCH = 200;
+      private const int MIN_PITCH = 50;
 
-        private const int DefaultPitch = 100;
-        private const int MaxPitch = 200;
-        private const int MinPitch = 50;
+      #endregion フィールド
 
-        #endregion フィールド
+      #region プロパティ
 
-        #region プロパティ
+      /// <summary>
+      /// 現在実行されているかどうかを取得します。
+      /// </summary>
+      public bool NowPlaying
+      {
+         get {
+            return Pub.NowPlaying;
+         }
+      }
 
-        /// <summary>
-        /// 現在実行されているかどうかを取得します。
-        /// </summary>
-        public bool NowPlaying
-        {
-            get {
-                return Pub.NowPlaying;
+      /// <summary>
+      /// 現在実行されているタスクのテキストテキストメッセージを取得します。
+      /// </summary>
+      public string Source
+      {
+         get {
+            return Pub.FormMain.textBoxSource.Text;
+         }
+      }
+
+      /// <summary>
+      /// タスクが保留されているかどうかを設定または取得します。
+      /// </summary>
+      public bool Pause
+      {
+         get {
+            return Pub.Pause;
+         }
+
+         set {
+            Pub.Pause = value;
+         }
+      }
+
+      /// <summary>
+      /// 現在のタスクID取得します。
+      /// </summary>
+      public int CurrentTaskId
+      {
+         get {
+            return Pub.NowTaskId;
+         }
+      }
+
+      /// <summary>
+      /// 現在のタスク数を取得します。
+      /// </summary>
+      public int TaskCount
+      {
+         get {
+            return Pub.TalkTaskCount;
+         }
+      }
+
+      /// <summary>
+      /// 話速を設定または取得します。
+      /// </summary>
+      public int TalkSpeed
+      {
+         get {
+            return Pub.FormMain.trackBarSpeed.Value;
+         }
+
+         set {
+            if (MIN_SPEED <= value && value <= MAX_SPEED) {
+               Pub.FormMain.trackBarSpeed.Value = value;
             }
-        }
-
-        /// <summary>
-        /// 現在実行されているタスクのテキストテキストメッセージを取得します。
-        /// </summary>
-        public string Source
-        {
-            get {
-                return Pub.FormMain.textBoxSource.Text;
+            else {
+               Pub.FormMain.trackBarSpeed.Value = DEFAULT_SPEED;
             }
-        }
+         }
+      }
 
-        /// <summary>
-        /// タスクが保留されているかどうかを設定または取得します。
-        /// </summary>
-        public bool Pause
-        {
-            get {
-                return Pub.Pause;
+      /// <summary>
+      /// 音量を設定または取得します。
+      /// </summary>
+      public int Volume
+      {
+         get {
+            return Pub.FormMain.trackBarVolume.Value;
+         }
+
+         set {
+            if (MIN_VOLUME <= value && value <= MAX_VOLUME) {
+               Pub.FormMain.trackBarVolume.Value = value;
+               return;
             }
-
-            set {
-                Pub.Pause = value;
+            else {
+               Pub.FormMain.trackBarVolume.Value = DEFAULT_VOLUME;
             }
-        }
+         }
+      }
 
-        /// <summary>
-        /// 現在のタスクID取得します。
-        /// </summary>
-        public int CurrentTaskId
-        {
-            get {
-                return Pub.NowTaskId;
+      /// <summary>
+      /// トーンを設定または取得します。
+      /// </summary>
+      public int Pitch
+      {
+         get {
+            return Pub.FormMain.trackBarTone.Value;
+         }
+
+         set {
+            if (MIN_PITCH <= value && value <= MAX_PITCH) {
+               Pub.FormMain.trackBarTone.Value = value;
+               return;
             }
-        }
-
-        /// <summary>
-        /// 現在のタスク数を取得します。
-        /// </summary>
-        public int TaskCount
-        {
-            get {
-                return Pub.TalkTaskCount;
+            else {
+               
+               Pub.FormMain.trackBarTone.Value = DEFAULT_PITCH;
             }
-        }
+         }
+      }
 
-        /// <summary>
-        /// 話速を設定または取得します。
-        /// </summary>
-        public int TalkSpeed
-        {
-            get {
-                return Pub.FormMain.trackBarSpeed.Value;
-            }
+      /// <summary>
+      /// このライブラリのバージョンを取得します。
+      /// </summary>
+      public string Version
+      {
+         get {
+            return Constants.VersionString;
+         }
+      }
 
-            set {
-                if (MinSpeed <= value && value <= MaxSpeed) {
-                    Pub.FormMain.trackBarSpeed.Value = value;
-                }
-                else {
-                    Pub.FormMain.trackBarSpeed.Value = DefaultSpeed;
-                }
-            }
-        }
+      #endregion プロパティ
 
-        /// <summary>
-        /// 音量を設定または取得します。
-        /// </summary>
-        public int Volume
-        {
-            get {
-                return Pub.FormMain.trackBarVolume.Value;
-            }
+      /// <summary>
+      /// タスクにテキストテキストメッセージを追加します。
+      /// </summary>
+      /// <param name="text">テキストテキストテキストメッセージ</param>
+      /// <returns>このタスクのIDが返されます。</returns>
+      public int PushText(string text)
+      {
+         return this.CorePushText(text, this.TalkSpeed, this.Volume, VoiceType.Default);
+      }
 
-            set {
-                if (MinVolume <= value && value <= MaxVolume) {
-                    Pub.FormMain.trackBarVolume.Value = value;
-                    return;
-                }
-                else {
-                    Pub.FormMain.trackBarVolume.Value = DefaultVolume;
-                }
-            }
-        }
+      /// <summary>
+      /// タスクにテキストテキストメッセージを追加します。
+      /// </summary>
+      /// <param name="text">テキストテキストメッセージ</param>
+      /// <param name="talkSpeed">話速設定</param>
+      /// <returns>このタスクのIDが返されます</returns>
+      public int PushText(string text, int talkSpeed)
+      {
+         return this.CorePushText(text, talkSpeed, this.Volume, VoiceType.Default);
+      }
 
-        /// <summary>
-        /// トーンを設定または取得します。
-        /// </summary>
-        public int Pitch
-        {
-            get {
-                return Pub.FormMain.trackBarTone.Value;
-            }
+      /// <summary>
+      /// タスクにテキストテキストメッセージを追加します。
+      /// </summary>
+      /// <param name="text">テキストテキストメッセージ</param>
+      /// <param name="talkSpeed">話速設定</param>
+      /// <param name="volume">音量</param>
+      /// <returns>このタスクのIDが返されます</returns>
+      public int PushText(string text, int talkSpeed, int volume)
+      {
+         return this.CorePushText(text, talkSpeed, volume, VoiceType.Default);
+      }
 
-            set {
-                if (MinPitch <= value && value <= MaxPitch) {
-                    Pub.FormMain.trackBarTone.Value = value;
-                    return;
-                }
-                else {
-                    Pub.FormMain.trackBarTone.Value = DefaultPitch;
-                }
-            }
-        }
+      /// <summary>
+      /// タスクにテキストテキストメッセージを追加します。
+      /// </summary>
+      /// <param name="text">テキストテキストメッセージ</param>
+      /// <param name="talkSpeed">話速設定</param>
+      /// <param name="volume">音量</param>
+      /// <param name="voiceType">ボイスタイプ</param>
+      /// <returns>このタスクのIDが返されます</returns>
+      public int PushText(string text, int talkSpeed, int volume, VoiceType voiceType)
+      {
+         return this.CorePushText(text, talkSpeed, volume, voiceType);
+      }
 
-        /// <summary>
-        /// このライブラリーのバージョンを取得します。
-        /// </summary>
-        public string Version
-        {
-            get {
-                return VersionString;
-            }
-        }
+      private int CorePushText(string text, int talkSpeed, int volume, VoiceType voiceType)
+      {
+         try {
+            return Pub.AddTalkTask(text, talkSpeed, volume, voiceType);
+         }
+         catch (Exception ex) {
+            Trace.WriteLine(ex.Message);
+            return -1;
+         }
+      }
 
-        #endregion プロパティ
-
-        /// <summary>
-        /// タスクにテキストテキストメッセージを追加します。
-        /// </summary>
-        /// <param name="text">テキストテキストテキストメッセージ</param>
-        /// <returns>このタスクのIDが返されます。</returns>
-        public int PushText(string text)
-        {
-            return this.CorePushText(text, this.TalkSpeed, this.Volume, VoiceType.Default);
-        }
-
-        /// <summary>
-        /// タスクにテキストテキストメッセージを追加します。
-        /// </summary>
-        /// <param name="text">テキストテキストメッセージ</param>
-        /// <param name="talkSpeed">話速設定</param>
-        /// <returns>このタスクのIDが返されます</returns>
-        public int PushText(string text, int talkSpeed)
-        {
-            return this.CorePushText(text, talkSpeed, this.Volume, VoiceType.Default);
-        }
-
-        /// <summary>
-        /// タスクにテキストテキストメッセージを追加します。
-        /// </summary>
-        /// <param name="text">テキストテキストメッセージ</param>
-        /// <param name="talkSpeed">話速設定</param>
-        /// <param name="volume">音量</param>
-        /// <returns>このタスクのIDが返されます</returns>
-        public int PushText(string text, int talkSpeed, int volume)
-        {
-            return this.CorePushText(text, talkSpeed, volume, VoiceType.Default);
-        }
-
-        /// <summary>
-        /// タスクにテキストテキストメッセージを追加します。
-        /// </summary>
-        /// <param name="text">テキストテキストメッセージ</param>
-        /// <param name="talkSpeed">話速設定</param>
-        /// <param name="volume">音量</param>
-        /// <param name="voice">ボイスタイプ</param>
-        /// <returns>このタスクのIDが返されます</returns>
-        public int PushText(string text, int talkSpeed, int volume, VoiceType voice)
-        {
-            return this.CorePushText(text, talkSpeed, volume, voice);
-        }
-
-        private int CorePushText(string text, int talkSpeed, int volume, VoiceType voice)
-        {
-            return Pub.AddTalkTask(text, talkSpeed, volume, (VoiceType)voice);
-        }
-
-        /// <summary>
-        /// 予約されているタスクをすべて削除します。
-        /// </summary>
-        public void ClearAll()
-        {
+      /// <summary>
+      /// 予約されているタスクをすべて削除します。
+      /// </summary>
+      public void ClearAll()
+      {
+         try {
             Pub.ClearTalkTasks();
-        }
+         }
+         catch (Exception ex) {
+            Trace.WriteLine(ex.Message);
+         }
+      }
 
-        /// <summary>
-        ///	現在進行中のタスクをスキップします。
-        /// </summary>
-        public void Skip()
-        {
+      /// <summary>
+      ///	現在進行中のタスクをスキップします。
+      /// </summary>
+      public void Skip()
+      {
+         try {
             Pub.SkipTalkTask();
-        }
+         }
+         catch (Exception ex) {
+            Trace.WriteLine(ex.Message);
+         }
+      }
 
-        /// <summary>
-        /// 有効期間ポリシーを制御する有効期間サービスオブジェクトの期間を無期限に設定するために、オーバーライドしています。
-        /// </summary>
-        /// <returns>null</returns>
-        [System.Security.SecurityCritical]
-        public override object InitializeLifetimeService()
-        {
-            return null;
-        }
-    }
+      /// <summary>
+      /// 有効期間ポリシーを制御する有効期間サービスオブジェクトの期間を無期限に設定するために、オーバーライドしています。
+      /// </summary>
+      /// <returns>null</returns>
+      [System.Security.SecurityCritical]
+      public override object InitializeLifetimeService()
+      {
+         return null;
+      }
+   }
 }

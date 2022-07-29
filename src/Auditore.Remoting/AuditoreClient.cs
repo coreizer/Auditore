@@ -1,5 +1,7 @@
-﻿/*
- * © 2021 coreizer
+﻿#region License Info
+
+/*
+ * © 2019-2022 coreizer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,6 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+#endregion
 
 namespace Auditore.Remoting
 {
@@ -41,10 +45,13 @@ namespace Auditore.Remoting
 
       #region プロパティ
 
+      /// <summary>
+      /// 棒読みちゃんのプロセスが起動およびプラグインが読み込まれているかどうかを確認します。
+      /// </summary>
       public bool IsBouyomiChan
       {
          get {
-            return Process.GetProcesses().Any(x => x.ProcessName == "BouyomiChan");
+            return this.IsProcessRunning();
          }
       }
 
@@ -215,7 +222,7 @@ namespace Auditore.Remoting
       /// </summary>
       /// <param name="text">テキストメッセージ</param>
       /// <param name="isForce">強制的にテキストメッセージをミュート状態に関わらず、タスクに追加します</param>
-      /// <returns>このタスクのIDが返されます</returns>
+      /// <returns>このタスクのIDが返されます。</returns>
       public virtual int Push(string text)
       {
          return this.PushCore(text);
@@ -227,7 +234,7 @@ namespace Auditore.Remoting
       /// <param name="text">テキストメッセージ</param>
       /// <param name="talkSpeed">話速</param>
       /// <param name="isForce">強制的にテキストメッセージをミュート状態に関わらず、タスクに追加します</param>
-      /// <returns>このタスクのIDが返されます</returns>
+      /// <returns>このタスクのIDが返されます。</returns>
       public virtual int Push(string text, int talkSpeed)
       {
          return this.PushCore(text, talkSpeed);
@@ -240,7 +247,7 @@ namespace Auditore.Remoting
       /// <param name="talkSpeed">話速</param>
       /// <param name="volume">音量</param>
       /// <param name="isForce">強制的にテキストメッセージをミュート状態に関わらず、タスクに追加します</param>
-      /// <returns>このタスクのIDが返されます</returns>
+      /// <returns>このタスクのIDが返されます。</returns>
       public virtual int Push(string text, int talkSpeed, int volume)
       {
          return this.PushCore(text, talkSpeed, volume);
@@ -253,7 +260,7 @@ namespace Auditore.Remoting
       /// <param name="text">テキストメッセージ</param>
       /// <param name="talkSpeed">話速</param>
       /// <param name="volume">音量</param>
-      /// <returns>このタスクのIDが返されます</returns>
+      /// <returns>このタスクのIDが返されます。</returns>
       public virtual int PushCore(string text, int talkSpeed = -1, int volume = -1)
       {
          if (!this.IsBouyomiChan) {
@@ -323,6 +330,21 @@ namespace Auditore.Remoting
       {
          this.Dispose(true);
          GC.SuppressFinalize(this);
+      }
+
+      private bool IsProcessRunning(string moduleName = "Plugin_Auditore.dll")
+      {
+         try {
+            Process process = Process.GetProcesses().FirstOrDefault(x => x.ProcessName == "BouyomiChan");
+            if (process == null) {
+               return false;
+            }
+
+            return process.Modules.OfType<ProcessModule>().Any(x => x.FileName.Contains(moduleName));
+         }
+         catch {
+            return false;
+         }
       }
    }
 }

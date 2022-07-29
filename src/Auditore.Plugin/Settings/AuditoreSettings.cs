@@ -1,5 +1,7 @@
-﻿/*
- * © 2021 coreizer
+﻿#region License Info
+
+/*
+ * © 2019-2022 coreizer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,40 +17,42 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#endregion
+
 using FNF.XmlSerializerSetting;
 
 namespace Auditore.Plugin.Settings
 {
-    public class PluginSettings : SettingsBase
-    {
-        protected readonly Main plugin;
+   public class PluginSettings : SettingsBase
+   {
+      protected readonly Main plugin;
 
-        public virtual PropertieModel Properties
-        {
-            get; set;
-        } = new PropertieModel();
+      public virtual PropertieModel Properties
+      {
+         get; set;
+      } = new PropertieModel();
 
-        public class PropertieModel
-        {
-        }
+      public class PropertieModel
+      {
+      }
 
-        public PluginSettings()
-        {
-        }
+      public PluginSettings()
+      {
+      }
 
-        public PluginSettings(Main plugin)
-        {
-            this.plugin = plugin;
-        }
+      public PluginSettings(Main plugin)
+      {
+         this.plugin = plugin;
+      }
 
-        public override void ReadSettings()
-        {
-            base.ReadSettings();
-        }
+      public override void ReadSettings()
+      {
+         base.ReadSettings();
+      }
 
-        public override void WriteSettings()
-        {
-            base.WriteSettings();
-        }
-    }
+      public override void WriteSettings()
+      {
+         base.WriteSettings();
+      }
+   }
 }

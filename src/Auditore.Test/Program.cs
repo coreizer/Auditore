@@ -1,5 +1,7 @@
-﻿/*
- * © 2021 coreizer
+﻿#region License Info
+
+/*
+ * © 2019-2022 coreizer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,22 +17,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#endregion
+
 using System;
 using System.Windows.Forms;
 
 namespace Auditore.Test
 {
-    static class Program
-    {
-        /// <summary>
-        /// アプリケーションのメイン エントリ ポイントです。
-        /// </summary>
-        [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain());
-        }
-    }
+   static class Program
+   {
+      /// <summary>
+      /// アプリケーションのメイン エントリ ポイントです。
+      /// </summary>
+      [STAThread]
+      static void Main()
+      {
+         Application.EnableVisualStyles();
+         Application.SetCompatibleTextRenderingDefault(false);
+         Application.Run(new frmMain());
+      }
+   }
 }

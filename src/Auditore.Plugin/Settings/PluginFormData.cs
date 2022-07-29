@@ -1,5 +1,7 @@
-﻿/*
- * © 2021 coreizer
+﻿#region License Info
+
+/*
+ * © 2019-2022 coreizer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,52 +17,54 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#endregion
+
 using FNF.XmlSerializerSetting;
 
 namespace Auditore.Plugin.Settings
 {
-    public class PluginFormData : ISettingFormData
-    {
-        #region フィールド
+   public class PluginFormData : ISettingFormData
+   {
+      #region フィールド
 
-        private PluginSettings settings;
+      private readonly PluginSettings settings;
 
-        #endregion
+      #endregion
 
-        #region プロパティ
+      #region プロパティ
 
-        /// <summary>
-        /// プラグインのタイトルを設定します
-        /// </summary>
-        public string Title
-        {
-            get {
-                return "Auditore プラグイン";
-            }
-        }
+      /// <summary>
+      /// プラグインのタイトルを設定します
+      /// </summary>
+      public string Title
+      {
+         get {
+            return "Auditore プラグイン";
+         }
+      }
 
-        public bool ExpandAll
-        {
-            get {
-                return false;
-            }
-        }
+      public bool ExpandAll
+      {
+         get {
+            return false;
+         }
+      }
 
-        /// <summary>
-        /// プラグインの設定を取得します
-        /// </summary>
-        public SettingsBase Setting
-        {
-            get {
-                return this.settings;
-            }
-        }
+      /// <summary>
+      /// プラグインの設定を取得します
+      /// </summary>
+      public SettingsBase Setting
+      {
+         get {
+            return this.settings;
+         }
+      }
 
-        #endregion
+      #endregion
 
-        public PluginFormData(PluginSettings settings)
-        {
-            this.settings = settings;
-        }
-    }
+      public PluginFormData(PluginSettings settings)
+      {
+         this.settings = settings;
+      }
+   }
 }
