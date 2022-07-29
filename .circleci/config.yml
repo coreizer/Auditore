@@ -11,7 +11,7 @@ jobs:
       steps:
        - checkout
        - run: dotnet restore
-       - run: dotnet build $SolutionName
+       - run: dotnet build Auditore.sln
     
 
 # Invoke jobs via workflows
