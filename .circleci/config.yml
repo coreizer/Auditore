@@ -4,10 +4,10 @@ jobs:
   build:
     docker:
       - image: mcr.microsoft.com/dotnet/framework/sdk:4.8
-     steps:
-       - checkout
-       - run: dotnet restore
-       - run: dotnet build $SolutionName
+    steps:
+      - checkout
+      - run: dotnet restore
+      - run: dotnet build $SolutionName
 
 workflows:
   version: 2.1
