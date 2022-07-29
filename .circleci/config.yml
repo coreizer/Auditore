@@ -6,15 +6,13 @@ orbs:
 jobs:
   build:
     executor: win/server-2022
-    docker:
-      - image: mcr.microsoft.com/dotnet/framework/sdk:4.8
+
     steps:
       - checkout
       - run: dotnet restore
       - run: dotnet build $SolutionName
 
 workflows:
-  version: 2.1
   buildAll:
     jobs:
       - build
