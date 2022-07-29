@@ -5,7 +5,9 @@ orbs:
 
 jobs:
   build:
-    executor: win/server-2022
+    docker:
+      - image: mcr.microsoft.com/dotnet/framework/sdk:4.8
+      - image: mcr.microsoft.com/dotnet/framework/sdk:3.5
 
     steps:
       - checkout
