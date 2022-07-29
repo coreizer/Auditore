@@ -1,6 +1,6 @@
 # Auditore!
 
-[![Build Status](https://travis-ci.org/coreizer/FoxPrite.svg?branch=master)](https://travis-ci.org/coreizer/FoxPrite)
+[![build](https://github.com/coreizer/Auditore/actions/workflows/dotnet.yml/badge.svg)](https://github.com/coreizer/Auditore/actions/workflows/dotnet.yml)
 
 ## 機能
 - 棒読みちゃんが実行中かどうかを確認する
