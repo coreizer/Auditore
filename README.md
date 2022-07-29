@@ -1,4 +1,4 @@
-# Auditore!
+# Auditore
 
 [![build](https://github.com/coreizer/Auditore/actions/workflows/dotnet.yml/badge.svg)](https://github.com/coreizer/Auditore/actions/workflows/dotnet.yml)
 
