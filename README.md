@@ -28,4 +28,4 @@ client.ClaerAll(); // or client.Reset();
 Coreizer
 
 ## ライセンス
-[Public License v3.0](LICENSE)
+[GPL v3.0 licensed.](LICENSE)
