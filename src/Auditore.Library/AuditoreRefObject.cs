@@ -19,13 +19,13 @@
 
 #endregion
 
-using System;
-using System.Diagnostics;
-using FNF.BouyomiChanApp;
-using FNF.Utility;
-
 namespace Auditore.Library
 {
+   using System;
+   using System.Diagnostics;
+   using FNF.BouyomiChanApp;
+   using FNF.Utility;
+
    public sealed class AuditoreRefObject : MarshalByRefObject
    {
       #region フィールド
