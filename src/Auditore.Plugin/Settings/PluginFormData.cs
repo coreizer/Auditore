@@ -36,29 +36,14 @@ namespace Auditore.Plugin.Settings
       /// <summary>
       /// プラグインのタイトルを設定します
       /// </summary>
-      public string Title
-      {
-         get {
-            return "Auditore プラグイン";
-         }
-      }
+      public string Title => "Auditore プラグイン";
 
-      public bool ExpandAll
-      {
-         get {
-            return false;
-         }
-      }
+      public bool ExpandAll => false;
 
       /// <summary>
       /// プラグインの設定を取得します
       /// </summary>
-      public SettingsBase Setting
-      {
-         get {
-            return this.settings;
-         }
-      }
+      public SettingsBase Setting => settings;
 
       #endregion
 

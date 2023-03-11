@@ -53,26 +53,26 @@ namespace Auditore.Test
          this.tabControl1 = new System.Windows.Forms.TabControl();
          this.tabPage1 = new System.Windows.Forms.TabPage();
          this.label7 = new System.Windows.Forms.Label();
+         this.groupBox1 = new System.Windows.Forms.GroupBox();
+         this.labelVolume = new System.Windows.Forms.Label();
+         this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+         this.trackBarTest = new System.Windows.Forms.TrackBar();
+         this.trackBar1 = new System.Windows.Forms.TrackBar();
+         this.labelSpeed = new System.Windows.Forms.Label();
+         this.labelTaskId = new System.Windows.Forms.Label();
+         this.labelTaskCount = new System.Windows.Forms.Label();
          this.tabPage3 = new System.Windows.Forms.TabPage();
          this.button2 = new System.Windows.Forms.Button();
          this.statusStrip1 = new System.Windows.Forms.StatusStrip();
          this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-         this.groupBox1 = new System.Windows.Forms.GroupBox();
          this.labelUpdatedAt = new System.Windows.Forms.Label();
-         this.trackBar1 = new System.Windows.Forms.TrackBar();
-         this.labelSpeed = new System.Windows.Forms.Label();
-         this.trackBarTest = new System.Windows.Forms.TrackBar();
-         this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-         this.labelVolume = new System.Windows.Forms.Label();
-         this.labelTaskCount = new System.Windows.Forms.Label();
-         this.labelTaskId = new System.Windows.Forms.Label();
          this.tabControl1.SuspendLayout();
          this.tabPage1.SuspendLayout();
+         this.groupBox1.SuspendLayout();
+         ((System.ComponentModel.ISupportInitialize)(this.trackBarTest)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
          this.tabPage3.SuspendLayout();
          this.statusStrip1.SuspendLayout();
-         this.groupBox1.SuspendLayout();
-         ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-         ((System.ComponentModel.ISupportInitialize)(this.trackBarTest)).BeginInit();
          this.SuspendLayout();
          // 
          // textBoxMessage
@@ -127,6 +127,97 @@ namespace Auditore.Test
          this.label7.TabIndex = 7;
          this.label7.Text = "タスク Id : ";
          // 
+         // groupBox1
+         // 
+         this.groupBox1.Controls.Add(this.labelVolume);
+         this.groupBox1.Controls.Add(this.linkLabel1);
+         this.groupBox1.Controls.Add(this.trackBarTest);
+         this.groupBox1.Controls.Add(this.trackBar1);
+         this.groupBox1.Controls.Add(this.labelSpeed);
+         this.groupBox1.Controls.Add(this.labelTaskId);
+         this.groupBox1.Controls.Add(this.labelTaskCount);
+         this.groupBox1.Location = new System.Drawing.Point(13, 11);
+         this.groupBox1.Name = "groupBox1";
+         this.groupBox1.Size = new System.Drawing.Size(365, 190);
+         this.groupBox1.TabIndex = 0;
+         this.groupBox1.TabStop = false;
+         this.groupBox1.Text = "情報";
+         // 
+         // labelVolume
+         // 
+         this.labelVolume.AutoSize = true;
+         this.labelVolume.Location = new System.Drawing.Point(40, 40);
+         this.labelVolume.Name = "labelVolume";
+         this.labelVolume.Size = new System.Drawing.Size(39, 12);
+         this.labelVolume.TabIndex = 2;
+         this.labelVolume.Text = "音量 : ";
+         // 
+         // linkLabel1
+         // 
+         this.linkLabel1.AutoSize = true;
+         this.linkLabel1.Location = new System.Drawing.Point(324, 164);
+         this.linkLabel1.Name = "linkLabel1";
+         this.linkLabel1.Size = new System.Drawing.Size(29, 12);
+         this.linkLabel1.TabIndex = 0;
+         this.linkLabel1.TabStop = true;
+         this.linkLabel1.Text = "更新";
+         this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+         // 
+         // trackBarTest
+         // 
+         this.trackBarTest.AutoSize = false;
+         this.trackBarTest.BackColor = System.Drawing.Color.White;
+         this.trackBarTest.Location = new System.Drawing.Point(107, 29);
+         this.trackBarTest.Maximum = 100;
+         this.trackBarTest.Name = "trackBarTest";
+         this.trackBarTest.Size = new System.Drawing.Size(221, 23);
+         this.trackBarTest.TabIndex = 0;
+         this.trackBarTest.TickStyle = System.Windows.Forms.TickStyle.None;
+         this.trackBarTest.Scroll += new System.EventHandler(this.trackBarTest_Scroll);
+         this.trackBarTest.Validating += new System.ComponentModel.CancelEventHandler(this.trackBarTest_Validating);
+         // 
+         // trackBar1
+         // 
+         this.trackBar1.AutoSize = false;
+         this.trackBar1.BackColor = System.Drawing.Color.White;
+         this.trackBar1.Location = new System.Drawing.Point(107, 58);
+         this.trackBar1.Maximum = 200;
+         this.trackBar1.Minimum = 50;
+         this.trackBar1.Name = "trackBar1";
+         this.trackBar1.Size = new System.Drawing.Size(221, 26);
+         this.trackBar1.TabIndex = 3;
+         this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
+         this.trackBar1.Value = 50;
+         this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+         this.trackBar1.Validating += new System.ComponentModel.CancelEventHandler(this.trackBar1_Validating);
+         // 
+         // labelSpeed
+         // 
+         this.labelSpeed.AutoSize = true;
+         this.labelSpeed.Location = new System.Drawing.Point(40, 72);
+         this.labelSpeed.Name = "labelSpeed";
+         this.labelSpeed.Size = new System.Drawing.Size(39, 12);
+         this.labelSpeed.TabIndex = 4;
+         this.labelSpeed.Text = "速度 : ";
+         // 
+         // labelTaskId
+         // 
+         this.labelTaskId.AutoSize = true;
+         this.labelTaskId.Location = new System.Drawing.Point(26, 104);
+         this.labelTaskId.Name = "labelTaskId";
+         this.labelTaskId.Size = new System.Drawing.Size(59, 12);
+         this.labelTaskId.TabIndex = 5;
+         this.labelTaskId.Text = "タスク Id : ...";
+         // 
+         // labelTaskCount
+         // 
+         this.labelTaskCount.AutoSize = true;
+         this.labelTaskCount.Location = new System.Drawing.Point(29, 132);
+         this.labelTaskCount.Name = "labelTaskCount";
+         this.labelTaskCount.Size = new System.Drawing.Size(58, 12);
+         this.labelTaskCount.TabIndex = 6;
+         this.labelTaskCount.Text = "タスク数 : ...";
+         // 
          // tabPage3
          // 
          this.tabPage3.Controls.Add(this.button2);
@@ -141,7 +232,7 @@ namespace Auditore.Test
          // 
          // button2
          // 
-         this.button2.Location = new System.Drawing.Point(74, 187);
+         this.button2.Location = new System.Drawing.Point(70, 187);
          this.button2.Margin = new System.Windows.Forms.Padding(2);
          this.button2.Name = "button2";
          this.button2.Size = new System.Drawing.Size(249, 27);
@@ -168,22 +259,6 @@ namespace Auditore.Test
          this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
          this.toolStripStatusLabel1.Text = "© 2019-2021 coreizer";
          // 
-         // groupBox1
-         // 
-         this.groupBox1.Controls.Add(this.labelVolume);
-         this.groupBox1.Controls.Add(this.linkLabel1);
-         this.groupBox1.Controls.Add(this.trackBarTest);
-         this.groupBox1.Controls.Add(this.trackBar1);
-         this.groupBox1.Controls.Add(this.labelSpeed);
-         this.groupBox1.Controls.Add(this.labelTaskId);
-         this.groupBox1.Controls.Add(this.labelTaskCount);
-         this.groupBox1.Location = new System.Drawing.Point(13, 11);
-         this.groupBox1.Name = "groupBox1";
-         this.groupBox1.Size = new System.Drawing.Size(365, 190);
-         this.groupBox1.TabIndex = 0;
-         this.groupBox1.TabStop = false;
-         this.groupBox1.Text = "情報";
-         // 
          // labelUpdatedAt
          // 
          this.labelUpdatedAt.AutoSize = true;
@@ -192,81 +267,6 @@ namespace Auditore.Test
          this.labelUpdatedAt.Size = new System.Drawing.Size(11, 12);
          this.labelUpdatedAt.TabIndex = 7;
          this.labelUpdatedAt.Text = "...";
-         // 
-         // trackBar1
-         // 
-         this.trackBar1.AutoSize = false;
-         this.trackBar1.BackColor = System.Drawing.Color.White;
-         this.trackBar1.Location = new System.Drawing.Point(107, 58);
-         this.trackBar1.Maximum = 200;
-         this.trackBar1.Minimum = 50;
-         this.trackBar1.Name = "trackBar1";
-         this.trackBar1.Size = new System.Drawing.Size(221, 26);
-         this.trackBar1.TabIndex = 3;
-         this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
-         this.trackBar1.Value = 50;
-         this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
-         this.trackBar1.Validating += new System.ComponentModel.CancelEventHandler(this.trackBar1_Validating);
-         // 
-         // labelSpeed
-         // 
-         this.labelSpeed.AutoSize = true;
-         this.labelSpeed.Location = new System.Drawing.Point(40, 72);
-         this.labelSpeed.Name = "labelSpeed";
-         this.labelSpeed.Size = new System.Drawing.Size(39, 12);
-         this.labelSpeed.TabIndex = 4;
-         this.labelSpeed.Text = "速度 : ";
-         // 
-         // trackBarTest
-         // 
-         this.trackBarTest.AutoSize = false;
-         this.trackBarTest.BackColor = System.Drawing.Color.White;
-         this.trackBarTest.Location = new System.Drawing.Point(107, 29);
-         this.trackBarTest.Maximum = 100;
-         this.trackBarTest.Name = "trackBarTest";
-         this.trackBarTest.Size = new System.Drawing.Size(221, 23);
-         this.trackBarTest.TabIndex = 0;
-         this.trackBarTest.TickStyle = System.Windows.Forms.TickStyle.None;
-         this.trackBarTest.Scroll += new System.EventHandler(this.trackBarTest_Scroll);
-         this.trackBarTest.Validating += new System.ComponentModel.CancelEventHandler(this.trackBarTest_Validating);
-         // 
-         // linkLabel1
-         // 
-         this.linkLabel1.AutoSize = true;
-         this.linkLabel1.Location = new System.Drawing.Point(324, 164);
-         this.linkLabel1.Name = "linkLabel1";
-         this.linkLabel1.Size = new System.Drawing.Size(29, 12);
-         this.linkLabel1.TabIndex = 0;
-         this.linkLabel1.TabStop = true;
-         this.linkLabel1.Text = "更新";
-         this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-         // 
-         // labelVolume
-         // 
-         this.labelVolume.AutoSize = true;
-         this.labelVolume.Location = new System.Drawing.Point(40, 40);
-         this.labelVolume.Name = "labelVolume";
-         this.labelVolume.Size = new System.Drawing.Size(39, 12);
-         this.labelVolume.TabIndex = 2;
-         this.labelVolume.Text = "音量 : ";
-         // 
-         // labelTaskCount
-         // 
-         this.labelTaskCount.AutoSize = true;
-         this.labelTaskCount.Location = new System.Drawing.Point(29, 132);
-         this.labelTaskCount.Name = "labelTaskCount";
-         this.labelTaskCount.Size = new System.Drawing.Size(58, 12);
-         this.labelTaskCount.TabIndex = 6;
-         this.labelTaskCount.Text = "タスク数 : ...";
-         // 
-         // labelTaskId
-         // 
-         this.labelTaskId.AutoSize = true;
-         this.labelTaskId.Location = new System.Drawing.Point(26, 104);
-         this.labelTaskId.Name = "labelTaskId";
-         this.labelTaskId.Size = new System.Drawing.Size(59, 12);
-         this.labelTaskId.TabIndex = 5;
-         this.labelTaskId.Text = "タスク Id : ...";
          // 
          // frmMain
          // 
@@ -284,13 +284,13 @@ namespace Auditore.Test
          this.tabControl1.ResumeLayout(false);
          this.tabPage1.ResumeLayout(false);
          this.tabPage1.PerformLayout();
+         this.groupBox1.ResumeLayout(false);
+         this.groupBox1.PerformLayout();
+         ((System.ComponentModel.ISupportInitialize)(this.trackBarTest)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
          this.tabPage3.ResumeLayout(false);
          this.statusStrip1.ResumeLayout(false);
          this.statusStrip1.PerformLayout();
-         this.groupBox1.ResumeLayout(false);
-         this.groupBox1.PerformLayout();
-         ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-         ((System.ComponentModel.ISupportInitialize)(this.trackBarTest)).EndInit();
          this.ResumeLayout(false);
          this.PerformLayout();
 

@@ -48,22 +48,12 @@ namespace Auditore.Remoting
       /// <summary>
       /// 棒読みちゃんのプロセスが起動およびプラグインが読み込まれているかどうかを確認します。
       /// </summary>
-      public bool IsBouyomiChan
-      {
-         get {
-            return this.IsProcessRunning();
-         }
-      }
+      public bool IsBouyomiChan => IsProcessRunning();
 
       /// <summary>
       /// ミュート状態かどうかを取得します。
       /// </summary>
-      public bool IsMuted
-      {
-         get {
-            return (this.IsBouyomiChan && this.Volume <= 0);
-         }
-      }
+      public bool IsMuted => (IsBouyomiChan && Volume <= 0);
 
       /// <summary>
       /// タスクが保留されているかどうかを設定または取得します。
@@ -71,19 +61,19 @@ namespace Auditore.Remoting
       public bool Pause
       {
          get {
-            if (!this.IsBouyomiChan) {
+            if (!IsBouyomiChan) {
                return false;
             }
 
-            return this.auditoreObject.Pause;
+            return auditoreObject.Pause;
          }
 
          set {
-            if (!this.IsBouyomiChan) {
+            if (!IsBouyomiChan) {
                return;
             }
 
-            this.auditoreObject.Pause = value;
+            auditoreObject.Pause = value;
          }
       }
 
@@ -93,19 +83,19 @@ namespace Auditore.Remoting
       public int Volume
       {
          get {
-            if (!this.IsBouyomiChan) {
+            if (!IsBouyomiChan) {
                return 0;
             }
 
-            return this.auditoreObject.Volume;
+            return auditoreObject.Volume;
          }
 
          set {
-            if (!this.IsBouyomiChan) {
+            if (!IsBouyomiChan) {
                return;
             }
 
-            this.auditoreObject.Volume = value;
+            auditoreObject.Volume = value;
          }
       }
 
@@ -115,18 +105,18 @@ namespace Auditore.Remoting
       public int TalkSpeed
       {
          get {
-            if (!this.IsBouyomiChan) {
+            if (!IsBouyomiChan) {
                return 50;
             }
 
-            return this.auditoreObject.TalkSpeed;
+            return auditoreObject.TalkSpeed;
          }
          set {
-            if (!this.IsBouyomiChan) {
+            if (!IsBouyomiChan) {
                return;
             }
 
-            this.auditoreObject.TalkSpeed = value;
+            auditoreObject.TalkSpeed = value;
          }
       }
 
@@ -136,18 +126,18 @@ namespace Auditore.Remoting
       public int Pitch
       {
          get {
-            if (!this.IsBouyomiChan) {
+            if (!IsBouyomiChan) {
                return 50;
             }
 
-            return this.auditoreObject.Pitch;
+            return auditoreObject.Pitch;
          }
          set {
-            if (!this.IsBouyomiChan) {
+            if (!IsBouyomiChan) {
                return;
             }
 
-            this.auditoreObject.Pitch = value;
+            auditoreObject.Pitch = value;
          }
       }
 
@@ -157,11 +147,11 @@ namespace Auditore.Remoting
       public int CurrentTaskId
       {
          get {
-            if (!this.IsBouyomiChan) {
+            if (!IsBouyomiChan) {
                return -1;
             }
 
-            return this.auditoreObject.CurrentTaskId;
+            return auditoreObject.CurrentTaskId;
          }
       }
 
@@ -171,11 +161,11 @@ namespace Auditore.Remoting
       public int TaskCount
       {
          get {
-            if (!this.IsBouyomiChan) {
+            if (!IsBouyomiChan) {
                return -1;
             }
 
-            return this.auditoreObject.TaskCount;
+            return auditoreObject.TaskCount;
          }
       }
 
@@ -185,11 +175,11 @@ namespace Auditore.Remoting
       public string Version
       {
          get {
-            if (!this.IsBouyomiChan) {
+            if (!IsBouyomiChan) {
                return "Error";
             }
 
-            return this.auditoreObject.Version;
+            return auditoreObject.Version;
          }
       }
 
@@ -197,16 +187,16 @@ namespace Auditore.Remoting
 
       ~AuditoreClient()
       {
-         this.Dispose(false);
+         Dispose(false);
       }
 
       public AuditoreClient()
       {
          // IPC クライアントチャンネルを作成
-         this.clientChannel = new IpcClientChannel();
+         clientChannel = new IpcClientChannel();
 
          // チャンネルを登録します
-         ChannelServices.RegisterChannel(this.clientChannel, true);
+         ChannelServices.RegisterChannel(clientChannel, true);
 
          // リモートオブジェクトの型を登録します
          RemotingConfiguration.RegisterWellKnownClientType(
@@ -214,7 +204,7 @@ namespace Auditore.Remoting
             Constants.IPC
          );
 
-         this.auditoreObject = new AuditoreRefObject();
+         auditoreObject = new AuditoreRefObject();
       }
 
       /// <summary>
@@ -225,7 +215,7 @@ namespace Auditore.Remoting
       /// <returns>このタスクのIDが返されます。</returns>
       public virtual int Push(string text)
       {
-         return this.PushCore(text);
+         return PushCore(text);
       }
 
       /// <summary>
@@ -237,7 +227,7 @@ namespace Auditore.Remoting
       /// <returns>このタスクのIDが返されます。</returns>
       public virtual int Push(string text, int talkSpeed)
       {
-         return this.PushCore(text, talkSpeed);
+         return PushCore(text, talkSpeed);
       }
 
       /// <summary>
@@ -250,7 +240,7 @@ namespace Auditore.Remoting
       /// <returns>このタスクのIDが返されます。</returns>
       public virtual int Push(string text, int talkSpeed, int volume)
       {
-         return this.PushCore(text, talkSpeed, volume);
+         return PushCore(text, talkSpeed, volume);
       }
 
       /// <summary>
@@ -263,11 +253,11 @@ namespace Auditore.Remoting
       /// <returns>このタスクのIDが返されます。</returns>
       public virtual int PushCore(string text, int talkSpeed = -1, int volume = -1)
       {
-         if (!this.IsBouyomiChan) {
+         if (!IsBouyomiChan) {
             return -1;
          }
 
-         return this.auditoreObject.PushText(text, talkSpeed, volume);
+         return auditoreObject.PushText(text, talkSpeed, volume);
       }
 
       /// <summary>
@@ -275,8 +265,8 @@ namespace Auditore.Remoting
       /// </summary>
       public virtual void ClaerAll()
       {
-         if (this.IsBouyomiChan) {
-            this.auditoreObject.ClearAll();
+         if (IsBouyomiChan) {
+            auditoreObject.ClearAll();
          }
       }
 
@@ -285,9 +275,9 @@ namespace Auditore.Remoting
       /// </summary>
       public virtual void Reset()
       {
-         if (this.IsBouyomiChan) {
-            this.auditoreObject.ClearAll();
-            this.auditoreObject.Skip();
+         if (IsBouyomiChan) {
+            auditoreObject.ClearAll();
+            auditoreObject.Skip();
          }
       }
 
@@ -296,46 +286,46 @@ namespace Auditore.Remoting
       /// </summary>
       public virtual void Skip()
       {
-         if (this.IsBouyomiChan) {
-            this.auditoreObject.Skip();
+         if (IsBouyomiChan) {
+            auditoreObject.Skip();
          }
       }
 
       public virtual void ToggleMute()
       {
-         if (this.IsMuted) {
-            this.Volume = this._last_Volume <= 0 ? 50 : this._last_Volume;
+         if (IsMuted) {
+            Volume = _last_Volume <= 0 ? 50 : _last_Volume;
          }
          else {
-            this._last_Volume = this.Volume;
-            this.Volume = 0;
+            _last_Volume = Volume;
+            Volume = 0;
          }
       }
 
       protected virtual void Dispose(bool disposing)
       {
-         if (!this.disposedValue) {
+         if (!disposedValue) {
             try {
-               ChannelServices.UnregisterChannel(this.clientChannel);
+               ChannelServices.UnregisterChannel(clientChannel);
             }
             catch (Exception ex) {
                Debug.WriteLine(ex.Message);
             }
 
-            this.disposedValue = true;
+            disposedValue = true;
          }
       }
 
       public void Dispose()
       {
-         this.Dispose(true);
+         Dispose(true);
          GC.SuppressFinalize(this);
       }
 
       private bool IsProcessRunning(string moduleName = "Plugin_Auditore.dll")
       {
          try {
-            Process process = Process.GetProcesses().FirstOrDefault(x => x.ProcessName == "BouyomiChan");
+            var process = Process.GetProcesses().FirstOrDefault(x => x.ProcessName == "BouyomiChan");
             if (process == null) {
                return false;
             }

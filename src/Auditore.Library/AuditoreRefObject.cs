@@ -49,65 +49,39 @@ namespace Auditore.Library
       /// <summary>
       /// 現在実行されているかどうかを取得します。
       /// </summary>
-      public bool NowPlaying
-      {
-         get {
-            return Pub.NowPlaying;
-         }
-      }
+      public bool NowPlaying => Pub.NowPlaying;
 
       /// <summary>
       /// 現在実行されているタスクのテキストテキストメッセージを取得します。
       /// </summary>
-      public string Source
-      {
-         get {
-            return Pub.FormMain.textBoxSource.Text;
-         }
-      }
+      public string Source => Pub.FormMain.textBoxSource.Text;
 
       /// <summary>
       /// タスクが保留されているかどうかを設定または取得します。
       /// </summary>
       public bool Pause
       {
-         get {
-            return Pub.Pause;
-         }
+         get => Pub.Pause;
 
-         set {
-            Pub.Pause = value;
-         }
+         set => Pub.Pause = value;
       }
 
       /// <summary>
       /// 現在のタスクID取得します。
       /// </summary>
-      public int CurrentTaskId
-      {
-         get {
-            return Pub.NowTaskId;
-         }
-      }
+      public int CurrentTaskId => Pub.NowTaskId;
 
       /// <summary>
       /// 現在のタスク数を取得します。
       /// </summary>
-      public int TaskCount
-      {
-         get {
-            return Pub.TalkTaskCount;
-         }
-      }
+      public int TaskCount => Pub.TalkTaskCount;
 
       /// <summary>
       /// 話速を設定または取得します。
       /// </summary>
       public int TalkSpeed
       {
-         get {
-            return Pub.FormMain.trackBarSpeed.Value;
-         }
+         get => Pub.FormMain.trackBarSpeed.Value;
 
          set {
             if (MIN_SPEED <= value && value <= MAX_SPEED) {
@@ -124,9 +98,7 @@ namespace Auditore.Library
       /// </summary>
       public int Volume
       {
-         get {
-            return Pub.FormMain.trackBarVolume.Value;
-         }
+         get => Pub.FormMain.trackBarVolume.Value;
 
          set {
             if (MIN_VOLUME <= value && value <= MAX_VOLUME) {
@@ -144,9 +116,7 @@ namespace Auditore.Library
       /// </summary>
       public int Pitch
       {
-         get {
-            return Pub.FormMain.trackBarTone.Value;
-         }
+         get => Pub.FormMain.trackBarTone.Value;
 
          set {
             if (MIN_PITCH <= value && value <= MAX_PITCH) {
@@ -154,7 +124,7 @@ namespace Auditore.Library
                return;
             }
             else {
-               
+
                Pub.FormMain.trackBarTone.Value = DEFAULT_PITCH;
             }
          }
@@ -163,12 +133,7 @@ namespace Auditore.Library
       /// <summary>
       /// このライブラリのバージョンを取得します。
       /// </summary>
-      public string Version
-      {
-         get {
-            return Constants.VersionString;
-         }
-      }
+      public string Version => Constants.VersionString;
 
       #endregion プロパティ
 
@@ -179,7 +144,7 @@ namespace Auditore.Library
       /// <returns>このタスクのIDが返されます。</returns>
       public int PushText(string text)
       {
-         return this.CorePushText(text, this.TalkSpeed, this.Volume, VoiceType.Default);
+         return CorePushText(text, TalkSpeed, Volume, VoiceType.Default);
       }
 
       /// <summary>
@@ -190,7 +155,7 @@ namespace Auditore.Library
       /// <returns>このタスクのIDが返されます</returns>
       public int PushText(string text, int talkSpeed)
       {
-         return this.CorePushText(text, talkSpeed, this.Volume, VoiceType.Default);
+         return CorePushText(text, talkSpeed, Volume, VoiceType.Default);
       }
 
       /// <summary>
@@ -202,7 +167,7 @@ namespace Auditore.Library
       /// <returns>このタスクのIDが返されます</returns>
       public int PushText(string text, int talkSpeed, int volume)
       {
-         return this.CorePushText(text, talkSpeed, volume, VoiceType.Default);
+         return CorePushText(text, talkSpeed, volume, VoiceType.Default);
       }
 
       /// <summary>
@@ -215,7 +180,7 @@ namespace Auditore.Library
       /// <returns>このタスクのIDが返されます</returns>
       public int PushText(string text, int talkSpeed, int volume, VoiceType voiceType)
       {
-         return this.CorePushText(text, talkSpeed, volume, voiceType);
+         return CorePushText(text, talkSpeed, volume, voiceType);
       }
 
       private int CorePushText(string text, int talkSpeed, int volume, VoiceType voiceType)

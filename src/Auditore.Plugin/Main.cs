@@ -48,42 +48,22 @@ namespace Auditore.Plugin
       /// <summary>
       /// プラグイン名を取得します。
       /// </summary>
-      public string Name
-      {
-         get {
-            return "auditore";
-         }
-      }
+      public string Name => "auditore";
 
       /// <summary>
       /// プラグインバージョンを取得します。
       /// </summary>
-      public string Version
-      {
-         get {
-            return Constants.VersionString;
-         }
-      }
+      public string Version => Constants.VersionString;
 
       /// <summary>
       /// プラグイン説明を取得します。
       /// </summary>
-      public string Caption
-      {
-         get {
-            return "auditore remoting";
-         }
-      }
+      public string Caption => "auditore remoting";
 
       /// <summary>
       /// このプラグインのフォームデータを取得します。
       /// </summary>
-      public ISettingFormData SettingFormData
-      {
-         get {
-            return this.settingFormData;
-         }
-      }
+      public ISettingFormData SettingFormData => settingFormData;
 
       #endregion プロパティ
 
@@ -93,8 +73,7 @@ namespace Auditore.Plugin
       public void Begin()
       {
          try {
-            IDictionary properties = new Hashtable
-            {
+            IDictionary properties = new Hashtable {
                ["name"] = "",
                ["portName"] = Constants.PortName,
                ["tokenImpersonationLevel"] = TokenImpersonationLevel.Impersonation,
@@ -103,13 +82,13 @@ namespace Auditore.Plugin
             };
 
             // IPC チャンネルを作成
-            this.serverChannel = new IpcServerChannel(properties, null);
+            serverChannel = new IpcServerChannel(properties, null);
 
             // リモートオブジェクトを登録
-            ChannelServices.RegisterChannel(this.serverChannel, true);
+            ChannelServices.RegisterChannel(serverChannel, true);
 
             // サーバー側でアクティブ化される型オブジェクト (単一の呼び出しまたはシングルトン) としてサービス エンドに登録されたオブジェクト型の値を保持します。
-            WellKnownServiceTypeEntry wkste = new WellKnownServiceTypeEntry(
+            var wkste = new WellKnownServiceTypeEntry(
                typeof(AuditoreRefObject),
                Constants.ChannelName,
                WellKnownObjectMode.Singleton
@@ -123,11 +102,11 @@ namespace Auditore.Plugin
          }
 
          // プラグイン設定を初期化します
-         this.settings = new PluginSettings(this);
-         this.settings.Load(Constants.Settings);
+         settings = new PluginSettings(this);
+         settings.Load(Constants.Settings);
 
          // フォームデータを初期化します
-         this.settingFormData = new PluginFormData(this.settings);
+         settingFormData = new PluginFormData(settings);
       }
 
       /// <summary>
@@ -135,7 +114,7 @@ namespace Auditore.Plugin
       /// </summary>
       public void End()
       {
-         ChannelServices.UnregisterChannel(this.serverChannel);
+         ChannelServices.UnregisterChannel(serverChannel);
       }
    }
 }

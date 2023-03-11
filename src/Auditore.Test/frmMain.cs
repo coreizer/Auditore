@@ -19,49 +19,48 @@
 
 #endregion
 
-using System;
-using System.Diagnostics;
-using System.Windows.Forms;
-
 namespace Auditore.Test
 {
+   using System;
+   using System.Windows.Forms;
+
    public partial class frmMain : Form
    {
       private readonly Remoting.AuditoreClient client = new Remoting.AuditoreClient();
 
       public frmMain()
       {
-         this.InitializeComponent();
-         this.Text = $"{this.Text} - {Application.ProductVersion}";
-         this.UpdateData();
+         InitializeComponent();
+         Text = $"{Text} - {Application.ProductVersion}";
+         UpdateData();
       }
 
       private void UpdateData()
       {
          try {
-            this.trackBarTest.Value = this.client.Volume;
-            this.labelVolume.Text = $"音量 : {this.client.Volume}";
+            trackBarTest.Value = client.Volume;
+            labelVolume.Text = $"音量 : {client.Volume}";
 
-            this.trackBar1.Value = this.client.TalkSpeed;
-            this.labelSpeed.Text = $"速度 : {this.client.TalkSpeed}";
+            trackBar1.Value = client.TalkSpeed;
+            labelSpeed.Text = $"速度 : {client.TalkSpeed}";
 
-            this.labelTaskId.Text = $"タスク Id : {this.client.CurrentTaskId}";
-            this.labelTaskCount.Text = $"タスク数 : {this.client.TaskCount}";
+            labelTaskId.Text = $"タスク Id : {client.CurrentTaskId}";
+            labelTaskCount.Text = $"タスク数 : {client.TaskCount}";
 
-            this.labelUpdatedAt.Text = DateTime.Now.ToString();
+            labelUpdatedAt.Text = DateTime.Now.ToString();
          }
          catch (Exception ex) {
             MessageBox.Show(ex.Message, "取得に失敗しました", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            this.labelUpdatedAt.Text = "取得に失敗しました";
+            labelUpdatedAt.Text = "取得に失敗しました";
          }
       }
 
       private void ButtonSend_Click(object sender, EventArgs e)
       {
          try {
-            int taskId = this.client.Push(this.textBoxMessage.Text);
-            this.label7.Text = $"タスク Id : {taskId}";
-            this.UpdateData();
+            var taskId = client.Push(textBoxMessage.Text);
+            label7.Text = $"タスク Id : {taskId}";
+            UpdateData();
          }
          catch (Exception ex) {
             MessageBox.Show(ex.Message, "送信に失敗しました", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -71,7 +70,7 @@ namespace Auditore.Test
       private void trackBarTest_Validating(object sender, System.ComponentModel.CancelEventArgs e)
       {
          try {
-            this.client.Volume = (sender as TrackBar).Value;
+            client.Volume = (sender as TrackBar).Value;
          }
          catch (Exception ex) {
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -81,7 +80,7 @@ namespace Auditore.Test
       private void trackBar1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
       {
          try {
-            this.client.TalkSpeed = (sender as TrackBar).Value;
+            client.TalkSpeed = (sender as TrackBar).Value;
          }
          catch (Exception ex) {
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -90,24 +89,24 @@ namespace Auditore.Test
 
       private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
       {
-         this.UpdateData();
+         UpdateData();
       }
 
       private void trackBarTest_Scroll(object sender, EventArgs e)
       {
-         this.client.Volume = (sender as TrackBar).Value;
-         this.labelVolume.Text = $"音量 : {this.client.Volume}";
+         client.Volume = (sender as TrackBar).Value;
+         labelVolume.Text = $"音量 : {client.Volume}";
       }
 
       private void trackBar1_Scroll(object sender, EventArgs e)
       {
-         this.client.TalkSpeed = (sender as TrackBar).Value;
-         this.labelSpeed.Text = $"速度 : {this.client.TalkSpeed}";
+         client.TalkSpeed = (sender as TrackBar).Value;
+         labelSpeed.Text = $"速度 : {client.TalkSpeed}";
       }
 
       private void button2_Click(object sender, EventArgs e)
       {
-         MessageBox.Show($"IsBouyomiChan: {this.client.IsBouyomiChan}");
+         MessageBox.Show($"IsBouyomiChan: {client.IsBouyomiChan}");
       }
    }
 }
