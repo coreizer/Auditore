@@ -66,6 +66,7 @@ namespace Auditore.Test
          this.statusStrip1 = new System.Windows.Forms.StatusStrip();
          this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
          this.labelUpdatedAt = new System.Windows.Forms.Label();
+         this.panel1 = new System.Windows.Forms.Panel();
          this.tabControl1.SuspendLayout();
          this.tabPage1.SuspendLayout();
          this.groupBox1.SuspendLayout();
@@ -73,6 +74,7 @@ namespace Auditore.Test
          ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
          this.tabPage3.SuspendLayout();
          this.statusStrip1.SuspendLayout();
+         this.panel1.SuspendLayout();
          this.SuspendLayout();
          // 
          // textBoxMessage
@@ -98,10 +100,10 @@ namespace Auditore.Test
          // 
          this.tabControl1.Controls.Add(this.tabPage1);
          this.tabControl1.Controls.Add(this.tabPage3);
-         this.tabControl1.Location = new System.Drawing.Point(14, 12);
+         this.tabControl1.Location = new System.Drawing.Point(23, 23);
          this.tabControl1.Name = "tabControl1";
          this.tabControl1.SelectedIndex = 0;
-         this.tabControl1.Size = new System.Drawing.Size(398, 428);
+         this.tabControl1.Size = new System.Drawing.Size(402, 429);
          this.tabControl1.TabIndex = 8;
          // 
          // tabPage1
@@ -113,7 +115,7 @@ namespace Auditore.Test
          this.tabPage1.Location = new System.Drawing.Point(4, 22);
          this.tabPage1.Name = "tabPage1";
          this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-         this.tabPage1.Size = new System.Drawing.Size(390, 402);
+         this.tabPage1.Size = new System.Drawing.Size(394, 403);
          this.tabPage1.TabIndex = 0;
          this.tabPage1.Text = "プレイグラウンド";
          this.tabPage1.UseVisualStyleBackColor = true;
@@ -225,14 +227,14 @@ namespace Auditore.Test
          this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
          this.tabPage3.Name = "tabPage3";
          this.tabPage3.Padding = new System.Windows.Forms.Padding(2);
-         this.tabPage3.Size = new System.Drawing.Size(390, 402);
+         this.tabPage3.Size = new System.Drawing.Size(394, 403);
          this.tabPage3.TabIndex = 2;
          this.tabPage3.Text = "Test";
          this.tabPage3.UseVisualStyleBackColor = true;
          // 
          // button2
          // 
-         this.button2.Location = new System.Drawing.Point(70, 187);
+         this.button2.Location = new System.Drawing.Point(70, 182);
          this.button2.Margin = new System.Windows.Forms.Padding(2);
          this.button2.Name = "button2";
          this.button2.Size = new System.Drawing.Size(249, 27);
@@ -246,10 +248,10 @@ namespace Auditore.Test
          this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
          this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-         this.statusStrip1.Location = new System.Drawing.Point(0, 466);
+         this.statusStrip1.Location = new System.Drawing.Point(0, 475);
          this.statusStrip1.Name = "statusStrip1";
          this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 8, 0);
-         this.statusStrip1.Size = new System.Drawing.Size(426, 22);
+         this.statusStrip1.Size = new System.Drawing.Size(448, 22);
          this.statusStrip1.TabIndex = 10;
          this.statusStrip1.Text = "statusStrip1";
          // 
@@ -262,20 +264,31 @@ namespace Auditore.Test
          // labelUpdatedAt
          // 
          this.labelUpdatedAt.AutoSize = true;
-         this.labelUpdatedAt.Location = new System.Drawing.Point(12, 443);
+         this.labelUpdatedAt.Location = new System.Drawing.Point(187, 539);
          this.labelUpdatedAt.Name = "labelUpdatedAt";
          this.labelUpdatedAt.Size = new System.Drawing.Size(11, 12);
          this.labelUpdatedAt.TabIndex = 7;
          this.labelUpdatedAt.Text = "...";
          // 
+         // panel1
+         // 
+         this.panel1.Controls.Add(this.tabControl1);
+         this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.panel1.Location = new System.Drawing.Point(0, 0);
+         this.panel1.Margin = new System.Windows.Forms.Padding(0);
+         this.panel1.Name = "panel1";
+         this.panel1.Padding = new System.Windows.Forms.Padding(20);
+         this.panel1.Size = new System.Drawing.Size(448, 475);
+         this.panel1.TabIndex = 11;
+         // 
          // frmMain
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(426, 488);
+         this.ClientSize = new System.Drawing.Size(448, 497);
+         this.Controls.Add(this.panel1);
          this.Controls.Add(this.labelUpdatedAt);
          this.Controls.Add(this.statusStrip1);
-         this.Controls.Add(this.tabControl1);
          this.MaximizeBox = false;
          this.MinimizeBox = false;
          this.Name = "frmMain";
@@ -291,6 +304,7 @@ namespace Auditore.Test
          this.tabPage3.ResumeLayout(false);
          this.statusStrip1.ResumeLayout(false);
          this.statusStrip1.PerformLayout();
+         this.panel1.ResumeLayout(false);
          this.ResumeLayout(false);
          this.PerformLayout();
 
@@ -316,6 +330,7 @@ namespace Auditore.Test
       private System.Windows.Forms.Label labelTaskId;
       private System.Windows.Forms.LinkLabel linkLabel1;
       private System.Windows.Forms.Label labelTaskCount;
+      private System.Windows.Forms.Panel panel1;
    }
 }
 
