@@ -26,7 +26,7 @@ Debug.WriteLine($"追加されたタスクId: { taskId }");
 client.ClaerAll(); // or client.Reset();
 ```
 
-## 🔗 コンタクト
+## 🔗 リンク
 
 - [coreizer.dev](https://www.coreizer.dev)
 - [Twitter](https://www.twitter.com/coreizer)
