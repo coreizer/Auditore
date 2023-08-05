@@ -2,7 +2,7 @@
 
 [![build](https://github.com/coreizer/Auditore/actions/workflows/dotnet.yml/badge.svg)](https://github.com/coreizer/Auditore/actions/workflows/dotnet.yml)
 
-## 機能
+## 👀 機能
 
 - 棒読みちゃんが実行中かどうかを確認する
 - 独自のミュート機能
@@ -10,7 +10,7 @@
 - 実行中のタスク数
 - 全タスクの削除
 
-## 使用例
+## 📦 使用例
 
 ```C#
 AuditoreClient client = new AuditoreClient();
@@ -26,10 +26,15 @@ Debug.WriteLine($"追加されたタスクId: { taskId }");
 client.ClaerAll(); // or client.Reset();
 ```
 
-## 作成者
+## 🔗 コンタクト
 
-coreizer
+- [coreizer.dev](https://www.coreizer.dev)
+- [Twitter](https://www.twitter.com/coreizer)
 
-## ライセンス
+## 👷 作成者
 
-[GPL v3.0 licensed.](LICENSE)
+- coreizer
+
+## ⚖️ ライセンス
+
+このプロジェクトは[GPL 3.0](https://opensource.org/license/lgpl-3-0/)に基づいてライセンスされています。詳細については、[ライセンスファイル](LICENSE)を参考してください。
