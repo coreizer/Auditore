@@ -31,7 +31,7 @@ client.ClaerAll(); // or client.Reset();
 - [coreizer.dev](https://www.coreizer.dev)
 - [Twitter](https://www.twitter.com/coreizer)
 
-## 👷 作成者
+## 👷 著者
 
 - coreizer
 
