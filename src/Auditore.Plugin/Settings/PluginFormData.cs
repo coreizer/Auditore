@@ -1,7 +1,7 @@
 ﻿#region License Info
 
 /*
- * © 2019-2022 coreizer
+ * © 2019-2024 coreizer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,35 +21,32 @@
 
 namespace Auditore.Plugin.Settings
 {
-   using FNF.XmlSerializerSetting;
+    using FNF.XmlSerializerSetting;
 
-   public class PluginFormData : ISettingFormData
-   {
-      #region フィールド
+    public class PluginFormData : ISettingFormData
+    {
+        #region フィールド
 
-      private readonly PluginSettings settings;
+        private readonly PluginSettings settings;
 
-      #endregion
+        #endregion
 
-      #region プロパティ
+        #region プロパティ
 
-      /// <summary>
-      /// プラグインのタイトルを設定します
-      /// </summary>
-      public string Title => "Auditore プラグイン";
+        /// <summary>
+        /// プラグインのタイトルを設定します
+        /// </summary>
+        public string Title => "Auditore プラグイン";
 
-      public bool ExpandAll => false;
+        public bool ExpandAll => false;
 
-      /// <summary>
-      /// プラグインの設定を取得します
-      /// </summary>
-      public SettingsBase Setting => settings;
+        /// <summary>
+        /// プラグインの設定を取得します
+        /// </summary>
+        public SettingsBase Setting => this.settings;
 
-      #endregion
+        #endregion
 
-      public PluginFormData(PluginSettings settings)
-      {
-         this.settings = settings;
-      }
-   }
+        public PluginFormData(PluginSettings settings) => this.settings = settings;
+    }
 }
