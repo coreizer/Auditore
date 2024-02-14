@@ -259,7 +259,7 @@ namespace Auditore.Test
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel1.Text = "© 2019-2021 coreizer";
+            this.toolStripStatusLabel1.Text = "© 2019-2024 coreizer";
             // 
             // labelUpdatedAt
             // 

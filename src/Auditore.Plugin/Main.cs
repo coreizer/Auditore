@@ -112,9 +112,6 @@ namespace Auditore.Plugin
         /// <summary>
         /// プラグインの終了処理を実行します。
         /// </summary>
-        public void End()
-        {
-            ChannelServices.UnregisterChannel(this.serverChannel);
-        }
+        public void End() => ChannelServices.UnregisterChannel(this.serverChannel);
     }
 }

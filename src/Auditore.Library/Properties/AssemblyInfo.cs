@@ -31,7 +31,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Auditore.Library")]
-[assembly: AssemblyCopyright("© 2021-2022 coreizer")]
+[assembly: AssemblyCopyright("© 2021-2024 coreizer")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
