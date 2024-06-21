@@ -19,10 +19,9 @@
 
 #endregion
 
-using FNF.XmlSerializerSetting;
-
 namespace Auditore.Plugin.Settings
 {
+   using FNF.XmlSerializerSetting;
 
    public class PluginFormData : ISettingFormData
    {

@@ -19,17 +19,17 @@
 
 #endregion
 
-using FNF.XmlSerializerSetting;
-
 namespace Auditore.Plugin.Settings
 {
+   using FNF.XmlSerializerSetting;
+
    public class PluginSettings : SettingsBase
    {
       protected readonly Main plugin;
 
       public virtual PropertieModel Properties { get; set; } = new PropertieModel();
 
-      public class PropertieModel{}
+      public class PropertieModel { }
 
       public PluginSettings() { }
 

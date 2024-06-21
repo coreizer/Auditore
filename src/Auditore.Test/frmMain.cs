@@ -19,11 +19,11 @@
 
 #endregion
 
-using System;
-using System.Windows.Forms;
-
 namespace Auditore.Test
 {
+   using System;
+   using System.Windows.Forms;
+
    public partial class frmMain : Form
    {
       private readonly Remoting.AuditoreClient client = new Remoting.AuditoreClient();
