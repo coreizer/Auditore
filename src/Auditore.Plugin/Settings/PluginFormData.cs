@@ -19,34 +19,35 @@
 
 #endregion
 
+using FNF.XmlSerializerSetting;
+
 namespace Auditore.Plugin.Settings
 {
-    using FNF.XmlSerializerSetting;
 
-    public class PluginFormData : ISettingFormData
-    {
-        #region フィールド
+   public class PluginFormData : ISettingFormData
+   {
+      #region フィールド
 
-        private readonly PluginSettings settings;
+      private readonly PluginSettings settings;
 
-        #endregion
+      #endregion
 
-        #region プロパティ
+      #region プロパティ
 
-        /// <summary>
-        /// プラグインのタイトルを設定します
-        /// </summary>
-        public string Title => "Auditore プラグイン";
+      /// <summary>
+      /// プラグインのタイトルを設定します
+      /// </summary>
+      public string Title => "Auditore プラグイン";
 
-        public bool ExpandAll => false;
+      public bool ExpandAll => false;
 
-        /// <summary>
-        /// プラグインの設定を取得します
-        /// </summary>
-        public SettingsBase Setting => this.settings;
+      /// <summary>
+      /// プラグインの設定を取得します
+      /// </summary>
+      public SettingsBase Setting => this.settings;
 
-        #endregion
+      #endregion
 
-        public PluginFormData(PluginSettings settings) => this.settings = settings;
-    }
+      public PluginFormData(PluginSettings settings) => this.settings = settings;
+   }
 }
