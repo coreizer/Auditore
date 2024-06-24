@@ -19,19 +19,19 @@
 
 #endregion
 
+using System;
+using System.Collections;
+using System.Runtime.Remoting;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Channels.Ipc;
+using System.Security.Principal;
+using Auditore.Library;
+using Auditore.Plugin.Settings;
+using FNF.BouyomiChanApp;
+using FNF.XmlSerializerSetting;
+
 namespace Auditore.Plugin
 {
-   using System;
-   using System.Collections;
-   using System.Runtime.Remoting;
-   using System.Runtime.Remoting.Channels;
-   using System.Runtime.Remoting.Channels.Ipc;
-   using System.Security.Principal;
-   using Auditore.Library;
-   using Auditore.Plugin.Settings;
-   using FNF.BouyomiChanApp;
-   using FNF.XmlSerializerSetting;
-
    public class Main : IPlugin
    {
       #region フィールド

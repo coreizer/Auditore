@@ -19,10 +19,11 @@
 
 #endregion
 
+using System;
+using System.Windows.Forms;
+
 namespace Auditore.Test
 {
-   using System;
-   using System.Windows.Forms;
 
    static class Program
    {

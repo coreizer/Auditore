@@ -19,16 +19,16 @@
 
 #endregion
 
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Runtime.Remoting;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Channels.Ipc;
+using Auditore.Library;
+
 namespace Auditore.Remoting
 {
-   using System;
-   using System.Diagnostics;
-   using System.Linq;
-   using System.Runtime.Remoting;
-   using System.Runtime.Remoting.Channels;
-   using System.Runtime.Remoting.Channels.Ipc;
-   using Auditore.Library;
-
    public class AuditoreClient : IAuditoreClient, IDisposable
    {
       #region フィールド
