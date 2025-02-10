@@ -19,33 +19,31 @@
 
 #endregion
 
-namespace Auditore.Library
-{
-   public static class Constants
-   {
-      /// <summary>
-      /// プラグインバージョンが定義されています。
-      /// </summary>
-      public const string VersionString = "1.5";
+namespace Auditore.Library {
+  public static class Constants {
+    /// <summary>
+    /// プラグインバージョンが定義されています。
+    /// </summary>
+    public const string VersionString = "1.5";
 
-      /// <summary>
-      /// チャンネル名が定義されています。
-      /// </summary>
-      public const string ChannelName = "message";
+    /// <summary>
+    /// チャンネル名が定義されています。
+    /// </summary>
+    public const string ChannelName = "message";
 
-      /// <summary>
-      /// チャンネルオブジェクトUriが定義されています。
-      /// </summary>
-      public const string PortName = "auditore";
+    /// <summary>
+    /// チャンネルオブジェクトUriが定義されています。
+    /// </summary>
+    public const string PortName = "auditore";
 
-      /// <summary>
-      /// チャンネルIPCが定義されています。
-      /// </summary>
-      public const string IPC = "ipc://auditore/message";
+    /// <summary>
+    /// チャンネルIPCが定義されています。
+    /// </summary>
+    public const string IPC = "ipc://auditore/message";
 
-      /// <summary>
-      /// プラグイン設定パスが定義されています。
-      /// </summary>
-      public const string Settings = "auditore.setting";
-   }
+    /// <summary>
+    /// プラグイン設定パスが定義されています。
+    /// </summary>
+    public const string Settings = "auditore.setting";
+  }
 }
